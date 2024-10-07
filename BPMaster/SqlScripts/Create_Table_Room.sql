@@ -16,6 +16,7 @@ CREATE TABLE "room"
     "interior" varchar(255),
     "describe" varchar(255),
     "note" varchar(255),
+    "Building_Id" uuid,
     "CreatedAt" timestamp with time zone,
     "UpdatedAt" timestamp with time zone,
     CONSTRAINT "room_pkey" PRIMARY KEY ("Id")

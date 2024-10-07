@@ -66,6 +66,6 @@ namespace BPMaster.Services
             }
             await _buildingRepository.DeleteAsync(Building);
         }
-
+        
     }
 }

@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\TEST\\DOAN\\doantotnghiep\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|c:\\test\\doan\\doantotnghiep\\bpmaster\\services\\identityuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|solutionrelative:bpmaster\\services\\identityuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|c:\\test\\doan\\doantotnghiep\\bpmaster\\domains\\dtos\\roomdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|solutionrelative:bpmaster\\domains\\dtos\\roomdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|c:\\test\\doan\\doantotnghiep\\bpmaster\\domains\\entities\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|solutionrelative:bpmaster\\domains\\entities\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|c:\\test\\doan\\doantotnghiep\\bpmaster\\domains\\entities\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|solutionrelative:bpmaster\\domains\\entities\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|c:\\test\\doan\\doantotnghiep\\bpmaster\\domains\\dtos\\buildingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|solutionrelative:bpmaster\\domains\\dtos\\buildingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|c:\\test\\doan\\doantotnghiep\\bpmaster\\services\\identityuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D26E912B-1FF9-4F01-B360-EA1252BA15B3}|BPMaster\\RPMSMaster.csproj|solutionrelative:bpmaster\\services\\identityuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,15 +62,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Building.cs",
-              "DocumentMoniker": "C:\\TEST\\DOAN\\doantotnghiep\\BPMaster\\Domains\\Entities\\Building.cs",
-              "RelativeDocumentMoniker": "BPMaster\\Domains\\Entities\\Building.cs",
-              "ToolTip": "C:\\TEST\\DOAN\\doantotnghiep\\BPMaster\\Domains\\Entities\\Building.cs",
-              "RelativeToolTip": "BPMaster\\Domains\\Entities\\Building.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAQwBcAAAA+AAAA",
+              "DocumentIndex": 0,
+              "Title": "RoomDto.cs",
+              "DocumentMoniker": "C:\\TEST\\DOAN\\doantotnghiep\\BPMaster\\Domains\\Dtos\\RoomDto.cs",
+              "RelativeDocumentMoniker": "BPMaster\\Domains\\Dtos\\RoomDto.cs",
+              "ToolTip": "C:\\TEST\\DOAN\\doantotnghiep\\BPMaster\\Domains\\Dtos\\RoomDto.cs",
+              "RelativeToolTip": "BPMaster\\Domains\\Dtos\\RoomDto.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAYwBoAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-07T08:05:02.181Z",
+              "WhenOpened": "2024-10-07T10:35:22.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Room.cs",
+              "DocumentMoniker": "C:\\TEST\\DOAN\\doantotnghiep\\BPMaster\\Domains\\Entities\\Room.cs",
+              "RelativeDocumentMoniker": "BPMaster\\Domains\\Entities\\Room.cs",
+              "ToolTip": "C:\\TEST\\DOAN\\doantotnghiep\\BPMaster\\Domains\\Entities\\Room.cs",
+              "RelativeToolTip": "BPMaster\\Domains\\Entities\\Room.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAkwBwAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-07T10:34:22.407Z",
               "EditorCaption": ""
             },
             {
@@ -77,20 +94,20 @@
               "RelativeDocumentMoniker": "BPMaster\\Domains\\Dtos\\BuildingDto.cs",
               "ToolTip": "C:\\TEST\\DOAN\\doantotnghiep\\BPMaster\\Domains\\Dtos\\BuildingDto.cs",
               "RelativeToolTip": "BPMaster\\Domains\\Dtos\\BuildingDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAASAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-07T08:03:01.755Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "IdentityUserService.cs",
               "DocumentMoniker": "C:\\TEST\\DOAN\\doantotnghiep\\BPMaster\\Services\\IdentityUserService.cs",
               "RelativeDocumentMoniker": "BPMaster\\Services\\IdentityUserService.cs",
               "ToolTip": "C:\\TEST\\DOAN\\doantotnghiep\\BPMaster\\Services\\IdentityUserService.cs",
               "RelativeToolTip": "BPMaster\\Services\\IdentityUserService.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAD4vzoAAABEAAAA",
+              "ViewState": "AQIAADgAAAAAAAAAAIA6wDcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-07T07:58:25.782Z",
               "EditorCaption": ""
