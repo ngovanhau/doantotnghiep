@@ -16,6 +16,14 @@ namespace Controllers.v1
         /// <summary>
         /// This API is for registering a new user
         /// </summary>
+        [HttpGet("Information")]
+        public async Task<IActionResult> GetInformationByUsername(string username)
+        {
+            return Success(await _service.Getinformation(username));
+        }
+        /// <summary>
+        /// This API is for registering a new user
+        /// </summary>
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserDto dto)
         {
@@ -38,6 +46,7 @@ namespace Controllers.v1
             await _service.ForgotPasswordAsync(dto);
             return Success(new { Message = "Reset password link sent to your email." });
         }
+
 
     }
 }

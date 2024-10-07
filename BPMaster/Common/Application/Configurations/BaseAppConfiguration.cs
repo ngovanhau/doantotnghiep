@@ -96,8 +96,6 @@ namespace Common.Application.Configurations
 
         public virtual void ConfigServices(IServiceCollection services, Assembly assembly, BaseAppSetting setting)
         {
-
-           // services.Configure<EmailSetting>(_configuration.GetSection("EmailSetting"));
             // Firebase
             FirebaseApp.Create(new AppOptions()
             {

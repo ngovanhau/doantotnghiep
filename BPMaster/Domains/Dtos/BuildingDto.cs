@@ -16,10 +16,10 @@ namespace BPMaster.Domains.Dtos
         public string address { get; set; } = string.Empty;
         public string city { get; set; } = string.Empty;
         public string district { get; set; } = string.Empty;
-        public DateTime payment_date { get; set; }
+        public int payment_date { get; set; }
         public int advance_notice { get; set; }
-        public DateTime payment_time { get; set; }
-        public DateTime payment_timeout { get; set; }
+        public int payment_time { get; set; }
+        public int payment_timeout { get; set; }
         public string management { get; set; } = string.Empty;
         public string fee_based_service { get; set; } = string.Empty;
         public string free_service { get; set; } = string.Empty;

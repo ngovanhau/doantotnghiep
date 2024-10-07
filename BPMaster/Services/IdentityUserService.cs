@@ -17,6 +17,7 @@ using System.Text;
 using System.Security.Cryptography;
 using MimeKit.Text;
 using MailKit.Net.Smtp;
+using BPMaster.Domains.Entities;
 
 
 namespace Services
@@ -33,17 +34,24 @@ namespace Services
 
         public async Task<IdentityUser> RegisterUserAsync(RegisterUserDto dto)
         {
-            var user = _mapper.Map<IdentityUser>(dto);
+            var usercheck = await _repo.GetByUsernameAsync(dto.Username);
+            if (usercheck == null)
+            {
+                var user = _mapper.Map<IdentityUser>(dto);
 
-            var hashPassword = PasswordUtil.HashPBKDF2(dto.Password, _passwordSetting, out var salts);
+                var hashPassword = PasswordUtil.HashPBKDF2(dto.Password, _passwordSetting, out var salts);
 
-            user.Id = Guid.NewGuid();
-            user.Password = hashPassword;
-            user.Salts = Convert.ToHexString(salts);
-           
-            await _repo.CreateAsync(user);
+                user.Id = Guid.NewGuid();
+                user.Password = hashPassword;
+                user.Salts = Convert.ToHexString(salts);
 
-            return user;
+                await _repo.CreateAsync(user);
+
+                return user;
+            }
+            else {
+                throw new Exception("user already exists");
+            }
         }
 
         public async Task<string> AuthenticateAsync(LoginUserDto dto)
@@ -66,6 +74,15 @@ namespace Services
             var authenticatedUser = _mapper.Map<AuthenticatedUserModel>(user);
 
             return JwtUtil.CreateJwtToken(_jwtTokenSetting, authenticatedUser);
+        }
+        public async Task<IdentityUser> Getinformation(string username)
+        {
+            var user = await _repo.GetByUsernameAsync(username);
+            if (user == null)
+            {
+                throw new NonAuthenticateException();
+            }
+            return user;
         }
         public async Task ForgotPasswordAsync(ForgotPasswordDto dto)
         {

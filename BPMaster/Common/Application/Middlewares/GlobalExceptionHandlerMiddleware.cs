@@ -28,6 +28,5 @@ namespace Common.Application.Middlewares
 			return ex.GetType().IsSubclassOf(typeof(ApplicationException))
 				? (ApplicationException)ex : new InternalErrorException(ex.Message);
 		}
-
 	}
 }
