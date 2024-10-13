@@ -28,6 +28,13 @@ namespace Repositories
             var sql = SqlCommandHelper.GetSelectSqlWithCondition<Room>(new { Id = id });
             return await GetOneByConditionAsync(sql, param);
         }
+        public async Task<List<Room>> GetAllRoomByBuildingID(Guid buildingId)
+        {
+            var param = new { Building_Id = buildingId };
+            var sql = SqlCommandHelper.GetSelectSqlWithCondition<Room>(new { Building_Id = buildingId });
+            var result = await connection.QueryAsync<Room>(sql, param);
+            return result.ToList();
+        }
         public async Task<Room> UpdateRoomAsync(Room Room)
         {
             return await UpdateAsync(Room);

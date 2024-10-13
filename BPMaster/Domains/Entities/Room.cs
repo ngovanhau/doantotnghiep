@@ -12,6 +12,7 @@ namespace BPMaster.Domains.Entities
     public class Room : SystemLogEntity<Guid>
     {
         public string room_name { get; set; } = string.Empty;
+        public int status { get; set; }
         public decimal room_price { get; set; }
         public int floor { get; set; } 
         public int number_of_bedrooms { get; set; } 

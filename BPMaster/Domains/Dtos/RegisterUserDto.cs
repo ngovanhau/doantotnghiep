@@ -9,8 +9,6 @@ namespace Domain.Dtos
 
         [Required]
         public required string Password { get; set; }
-        //[Required]
-        //public required string Email { get; set; }
 
         [Required]
         public required string FirstName { get; set; }
@@ -18,6 +16,8 @@ namespace Domain.Dtos
         [Required]
         public  required string LastName { get; set; }
         [Required]
-        public required string Role { get; set; } 
+        public required string Role { get; set; }
+        [Required]
+        public required string Email { get; set; }
     }
 }

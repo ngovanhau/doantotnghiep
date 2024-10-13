@@ -32,6 +32,16 @@ namespace BPMaster.Services
             }
             return Room;
         }
+        public async Task<List<Room>> GetAllRoomByBuildingID(Guid id)
+        {
+            var rooms = await _RoomRepository.GetAllRoomByBuildingID(id);
+
+            if (rooms == null || rooms.Count == 0)
+            {
+                throw new NonAuthenticateException("Not found!");
+            }
+            return rooms;
+        }
 
         public async Task<Room> CreateRoomAsync(RoomDto dto)
         {

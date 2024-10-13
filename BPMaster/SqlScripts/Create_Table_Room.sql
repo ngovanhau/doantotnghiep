@@ -2,6 +2,7 @@ CREATE TABLE "room"
 (
     "Id" uuid NOT NULL,
     "room_name" varchar(255),
+    "status" int,
     "room_price" numeric,
     "floor" int,
     "number_of_bedrooms" int,

@@ -37,16 +37,5 @@ namespace Controllers.v1
         {
             return Success(await _service.AuthenticateAsync(dto));
         }
-        /// <summary>
-        /// This API is for forgot password a user
-        /// </summary>
-        [HttpPost("forgotpassword")]
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
-        {
-            await _service.ForgotPasswordAsync(dto);
-            return Success(new { Message = "Reset password link sent to your email." });
-        }
-
-
     }
 }

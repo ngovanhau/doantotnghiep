@@ -11,6 +11,7 @@ namespace BPMaster.Domains.Dtos
     {
         [Required]
         public string room_name { get; set; } = string.Empty;
+        public int status { get; set; }
         [Required]
         public decimal room_price { get; set; }
         [Required]

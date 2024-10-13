@@ -84,43 +84,6 @@ namespace Services
             }
             return user;
         }
-        public async Task ForgotPasswordAsync(ForgotPasswordDto dto)
-        {
-            var user = await _repo.GetByEmailAsync(dto.Email);
-            if (user == null || user.Status == UserStatus.Deleted)
-            {
-                throw new Exception("user not found");
-            }
-
-            var token = CreateResetToken(user);
-
-            var resetLink = $"https://yourdomain.com/reset-password?token={token}";
-
-            await SendResetPasswordEmailAsync(user.Email, resetLink);
-        }
-        private string CreateResetToken(IdentityUser user)
-        {
-            using var hmac = new HMACSHA256();
-            var tokenBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes($"{user.Email}{DateTime.UtcNow}"));
-            return Convert.ToBase64String(tokenBytes);
-        }
-
-        private async Task SendResetPasswordEmailAsync(string email, string resetLink)
-        {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Support", _emailSetting.FromAddress));
-            message.To.Add(new MailboxAddress(email, email));
-            message.Subject = "Reset your password";
-            message.Body = new TextPart(TextFormat.Html)
-            {
-                Text = $"<p>Click <a href='{resetLink}'>here</a> to reset your password.</p>"
-            };
-
-            using var smtpClient = new SmtpClient();
-            await smtpClient.ConnectAsync(_emailSetting.SmtpServer, _emailSetting.SmtpPort, MailKit.Security.SecureSocketOptions.StartTls);
-            await smtpClient.AuthenticateAsync(_emailSetting.SmtpUser, _emailSetting.SmtpPassword);
-            await smtpClient.SendAsync(message);
-            await smtpClient.DisconnectAsync(true);
-        }
+        
     }
 }

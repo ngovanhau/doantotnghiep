@@ -7,14 +7,14 @@ namespace Common.Application.Models
     {
         public HttpStatusCode HttpStatus { get; set; } = HttpStatusCode.OK;
         public bool IsSuccess { get; set; } = true;
-        public object? Token { get; set; }
+        public object? Data { get; set; }
 
-        public static ResponseModel Success<T> (T token, HttpStatusCode statusCode = HttpStatusCode.OK) where T : class
+        public static ResponseModel Success<T> (T data, HttpStatusCode statusCode = HttpStatusCode.OK) where T : class
         {
             return new ResponseModel {
                 HttpStatus = statusCode,
                 IsSuccess = true,
-                Token = token, 
+                Data = data, 
             };
         }
 
@@ -24,7 +24,7 @@ namespace Common.Application.Models
             {
                 HttpStatus = statusCode,
                 IsSuccess = false,
-                Token = new ErrorResponseModel
+                Data = new ErrorResponseModel
                 {
                     HttpStatus = statusCode,
                     ErrorCode = errorCode,

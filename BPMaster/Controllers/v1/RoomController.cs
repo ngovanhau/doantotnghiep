@@ -53,6 +53,14 @@ namespace BPMaster.Controllers.v1
             await _service.DeleteRoomAsync(id);
             return Success("delete Success");
         }
+        /// <summary>
+        /// this is api GetallRoomByBuildingID
+        /// </summary>
+        [HttpGet("GetallRoomByBuildingID")]
+        public async Task<IActionResult> GetallRoomByBuildingID(Guid id)
+        {
+            return Success(await _service.GetAllRoomByBuildingID(id));
+        }
     }
 }
 
