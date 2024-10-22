@@ -10,7 +10,7 @@ namespace BPMaster.Domains.Dtos
     public class ContractDto
     {
         [Required]
-        public string contract_name { get; set; } = string.Empty;
+        public string rentalManagement { get; set; } = string.Empty;
         [Required]
         public string room { get; set; } = string.Empty;
         [Required]
@@ -20,7 +20,7 @@ namespace BPMaster.Domains.Dtos
         [Required]
         public DateTime billing_start_date { get; set; }
         [Required]
-        public string payment_term { get; set; } = string.Empty;
+        public int payment_term { get; set; }
         [Required]
         public int room_fee { get; set; }
         [Required]

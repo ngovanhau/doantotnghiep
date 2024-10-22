@@ -38,7 +38,18 @@ namespace BPMaster.Services
 
             if (rooms == null || rooms.Count == 0)
             {
-                throw new NonAuthenticateException("Not found!");
+                throw new NonAuthenticateException("Room Not found!");
+            }
+            return rooms;
+        }
+
+        public async Task<List<Room>> GetRoomByStatus(int status)
+        {
+            var rooms = await _RoomRepository.GetRoomByStatus(status);
+
+            if (rooms == null || rooms.Count == 0)
+            {
+                throw new NonAuthenticateException("Room Not found!");
             }
             return rooms;
         }

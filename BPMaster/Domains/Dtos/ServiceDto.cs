@@ -13,6 +13,8 @@ namespace BPMaster.Domains.Dtos
         public string service_name { get; set; } = string.Empty;
         [Required]
         public string collect_fees { get; set; } = string.Empty;
+        [Required]
+        public string unitMeasure { get; set; } = string.Empty;
         public int service_cost { get; set; }
         [Required]
         public string image { get; set; } = string.Empty;

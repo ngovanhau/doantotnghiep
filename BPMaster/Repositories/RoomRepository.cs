@@ -35,6 +35,13 @@ namespace Repositories
             var result = await connection.QueryAsync<Room>(sql, param);
             return result.ToList();
         }
+        public async Task<List<Room>> GetRoomByStatus(int status)
+        {
+            var param = new { status = status };
+            var sql = SqlCommandHelper.GetSelectSqlWithCondition<Room>(new { status = status });
+            var result = await connection.QueryAsync<Room>(sql, param);
+            return result.ToList();
+        }
         public async Task<Room> UpdateRoomAsync(Room Room)
         {
             return await UpdateAsync(Room);

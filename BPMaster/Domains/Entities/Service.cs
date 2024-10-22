@@ -12,6 +12,7 @@ namespace BPMaster.Domains.Entities
     {
         public string service_name { get; set; } = string.Empty;
         public string collect_fees { get; set; } = string.Empty;
+        public string unitMeasure { get; set; } = string.Empty;
         public int service_cost { get; set; }
         public string image { get; set; } = string.Empty;
         public string note { get; set; } = string.Empty;

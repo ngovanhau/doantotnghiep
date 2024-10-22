@@ -44,6 +44,7 @@ namespace Application.Settings
             { "PUT - /api/v1/room/update", new List<string> { "UpdateroomPermission" } },
             { "DELETE - /api/v1/room/delete", new List<string> { "DeleteroomPermission" } },
             { "GET - /api/v1/room/getallroombybuildingid", new List<string> { "GetroomidPermission" } },
+            { "GET - /api/v1/room/getroombystatus", new List<string> { "GetroomidPermission" } },
 
 
             { "GET - /api/v1/service/getservicebyid", new List<string> { "GetserviceidPermission" } },

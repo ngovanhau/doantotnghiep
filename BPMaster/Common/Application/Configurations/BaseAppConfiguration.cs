@@ -83,7 +83,7 @@ namespace Common.Application.Configurations
             app.UseAuthorization();
 
             // Sử dụng CORS
-            app.UseCors("AllowAllOrigins");
+            app.UseCors("AllowAll");
 
             app.MapControllers();
 
@@ -110,8 +110,8 @@ namespace Common.Application.Configurations
             // Thêm CORS
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("https://localhost:7174") 
+                options.AddPolicy("AllowAll",
+                    builder => builder.AllowAnyOrigin() 
                                       .AllowAnyMethod()
                                       .AllowAnyHeader());
             });

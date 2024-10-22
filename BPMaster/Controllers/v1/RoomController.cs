@@ -61,6 +61,11 @@ namespace BPMaster.Controllers.v1
         {
             return Success(await _service.GetAllRoomByBuildingID(id));
         }
+        [HttpGet("GetRoomByStatus")]
+        public async Task<IActionResult> GetRoomByStatus(int status)
+        {
+            return Success(await _service.GetRoomByStatus(status)); 
+        }
     }
 }
 
