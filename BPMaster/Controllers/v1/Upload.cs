@@ -29,7 +29,7 @@ namespace BPMaster.Controllers.v1
                     await file.CopyToAsync(stream);
                 }
 
-                var storageClient = await StorageClient.CreateAsync(GoogleCredential.FromFile(@"C:\lsp-workflow-backend\BPMaster\Firebase\mydb-71221-firebase-adminsdk-gbxif-0fd49e35fa.json"));
+                var storageClient = await StorageClient.CreateAsync(GoogleCredential.FromFile(@"C:\TEST\DOAN\doantotnghiep\BPMaster\Firebase\mydb-71221-firebase-adminsdk-gbxif-0fd49e35fa.json"));
                 var bucketName = "mydb-71221.appspot.com"; 
 
                 using (var fileStream = new FileStream(filePath, FileMode.Open))

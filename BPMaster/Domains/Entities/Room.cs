@@ -22,7 +22,6 @@ namespace BPMaster.Domains.Entities
         public decimal deposit { get; set; } 
         public int renter { get; set; } 
         public string service { get; set; } = string.Empty ;
-        public string image { get; set; } = string.Empty;
         public string utilities { get; set; } = string.Empty;
         public string interior { get; set; } = string.Empty;    
         public string describe { get; set; } = string.Empty;

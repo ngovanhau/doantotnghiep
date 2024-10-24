@@ -11,6 +11,7 @@ public class RoomProfile : BaseProfile
             .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
 
         CreateMap<Room, RoomDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
     }
 }

@@ -99,7 +99,7 @@ namespace Common.Application.Configurations
             // Firebase
             FirebaseApp.Create(new AppOptions()
             {
-                Credential = GoogleCredential.FromFile(@"C:\lsp-workflow-backend\BPMaster\Firebase\mydb-71221-firebase-adminsdk-gbxif-0fd49e35fa.json"),
+                Credential = GoogleCredential.FromFile(@"C:\TEST\DOAN\doantotnghiep\BPMaster\Firebase\mydb-71221-firebase-adminsdk-gbxif-0fd49e35fa.json"),
             });
 
             // Generic services need to inject

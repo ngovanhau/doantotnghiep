@@ -9,6 +9,7 @@ namespace BPMaster.Domains.Dtos
 {
     public class RoomDto
     {
+        public Guid Id { get; set; }
         [Required]
         public string room_name { get; set; } = string.Empty;
         public int status { get; set; }
@@ -26,8 +27,8 @@ namespace BPMaster.Domains.Dtos
         public int limited_occupancy { get; set; }
         public decimal deposit { get; set; }
         public int renter { get; set; }
-        public string service { get; set; } = string.Empty;
-        public string image { get; set; } = string.Empty;
+        public List<RoomserviceDto> roomservice { get; set; } = new List<RoomserviceDto>();
+        public List<string> imageUrls { get; set; } = new List<string>();
         public string utilities { get; set; } = string.Empty;
         public string interior { get; set; } = string.Empty;
         public string describe { get; set; } = string.Empty;

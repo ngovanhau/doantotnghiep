@@ -98,7 +98,7 @@ namespace BPMaster.Services
 
             if (dto.fee_based_service != null && dto.fee_based_service.Count > 0)
             {
-                var serviceIds = dto.fee_based_service.Select(s => s.ServiceId).ToList(); // Lấy danh sách Id từ BuildingFeeBaseServiceDto
+                var serviceIds = dto.fee_based_service.Select(s => s.ServiceId).ToList(); 
                 await _buildingRepository.AddServicesToBuilding(id, serviceIds);
             }
             if (dto.free_service != null && dto.free_service.Count > 0)
