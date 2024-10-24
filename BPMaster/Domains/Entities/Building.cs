@@ -22,8 +22,6 @@ namespace BPMaster.Domains.Entities
         public int payment_time { get; set; }
         public int payment_timeout { get; set; } 
         public string management { get; set; } = string.Empty;
-        public string fee_based_service { get; set; } = string.Empty;
-        public string free_service { get; set; } = string.Empty;
         public string utilities { get; set; } = string.Empty;
         public string building_note { get; set; } = string.Empty;
 

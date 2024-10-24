@@ -37,5 +37,53 @@ namespace Repositories
         {
             await DeleteAsync(building);
         }
+
+        public async Task AddServicesToBuilding(Guid buildingId, List<Guid> serviceIds)
+        {
+            foreach (var serviceId in serviceIds)
+            {
+                var entry = new { BuildingId = buildingId, ServiceId = serviceId };
+                var sql = "INSERT INTO buildingfeebasedservice (BuildingId, ServiceId) VALUES (@BuildingId, @ServiceId)";
+                await connection.ExecuteAsync(sql, entry);
+            }
+        }
+        public async Task RemoveServicesFromBuilding(Guid buildingId)
+        {
+            var sql = "DELETE FROM buildingfeebasedservice WHERE BuildingId = @BuildingId";
+            await connection.ExecuteAsync(sql, new { BuildingId = buildingId });
+        }
+        public async Task<List<BuildingFeeBaseServiceDto>> GetFeeBasedServicesByBuilding(Guid buildingId)
+        {
+            var sql = @"SELECT s.""Id"" as ServiceId, s.""service_name"" as ServiceName
+                FROM buildingfeebasedservice bfs
+                INNER JOIN service s ON bfs.""serviceid"" = s.""Id""
+                WHERE bfs.""buildingid"" = @BuildingId";
+            var result = await connection.QueryAsync<BuildingFeeBaseServiceDto>(sql, new { BuildingId = buildingId });
+            return result.ToList();
+        }
+
+        public async Task AddServicesFreeBuilding(Guid buildingId, List<Guid> serviceIds)
+        {
+            foreach (var serviceId in serviceIds)
+            {
+                var entry = new { BuildingId = buildingId, ServiceId = serviceId };
+                var sql = "INSERT INTO buildingfreeservice (BuildingId, ServiceId) VALUES (@BuildingId, @ServiceId)";
+                await connection.ExecuteAsync(sql, entry);
+            }
+        }
+        public async Task RemoveServicesFreeFromBuilding(Guid buildingId)
+        {
+            var sql = "DELETE FROM buildingfreeservice WHERE BuildingId = @BuildingId";
+            await connection.ExecuteAsync(sql, new { BuildingId = buildingId });
+        }
+        public async Task<List<BuildingFreeServiceDto>> GetFreeServicesByBuilding(Guid buildingId)
+        {
+            var sql = @"SELECT s.""Id"" as ServiceId, s.""service_name"" as ServiceName
+                FROM buildingfreeservice bfs
+                INNER JOIN service s ON bfs.""serviceid"" = s.""Id""
+                WHERE bfs.""buildingid"" = @BuildingId";
+            var result = await connection.QueryAsync<BuildingFreeServiceDto>(sql, new { BuildingId = buildingId });
+            return result.ToList();
+        }
     }
 }

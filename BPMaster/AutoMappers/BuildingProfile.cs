@@ -11,6 +11,7 @@ public class BuildingProfile : BaseProfile
             .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
 
         CreateMap<Building, BuildingDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id)) 
             .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
     }
 }

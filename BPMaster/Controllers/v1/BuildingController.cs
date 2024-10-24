@@ -18,7 +18,7 @@ namespace BPMaster.Controllers.v1
         [HttpGet("Buildingall")]
         public async Task<IActionResult> GetBuilding()
         {
-            var Building = await _service.GetAllBuilding();
+            var Building = await _service.GetAllBuildings();
             return Success(Building);
         }
         /// <summary>

@@ -17,29 +17,66 @@ namespace BPMaster.Services
     {
         private readonly BuildingRepository _buildingRepository = new(connection);
 
-        public async Task<List<Building>> GetAllBuilding()
+        public async Task<List<BuildingDto>> GetAllBuildings()
         {
-            return await _buildingRepository.GetAllBuilding();
+            var buildings = await _buildingRepository.GetAllBuilding();
+            var result = new List<BuildingDto>();
+
+            foreach (var building in buildings)
+            {
+                var feeBasedServices = await _buildingRepository.GetFeeBasedServicesByBuilding(building.Id);
+                var freeServices = await _buildingRepository.GetFreeServicesByBuilding(building.Id);
+
+                var dto = _mapper.Map<BuildingDto>(building);
+
+                dto.fee_based_service = feeBasedServices; 
+                dto.free_service = freeServices;
+
+                result.Add(dto);
+            }
+
+            return result;
         }
 
-        public async Task<Building> GetByIDBuilding(Guid BuildingId)
+        public async Task<BuildingDto> GetByIDBuilding(Guid buildingId)
         {
-            var Building = await _buildingRepository.GetByIDBuilding(BuildingId);
+            var building = await _buildingRepository.GetByIDBuilding(buildingId);
 
-            if (Building == null)
+            if (building == null)
             {
                 throw new NonAuthenticateException();
             }
-            return Building;
+
+            var feeBasedServices = await _buildingRepository.GetFeeBasedServicesByBuilding(buildingId);
+            var freeServices = await _buildingRepository.GetFreeServicesByBuilding(buildingId);
+
+            var dto = _mapper.Map<BuildingDto>(building);
+
+            dto.fee_based_service = feeBasedServices; 
+
+            dto.free_service = freeServices;
+
+            return dto;
         }
 
         public async Task<Building> CreateBuildingAsync(BuildingDto dto)
         {
             var building = _mapper.Map<Building>(dto);
-
             building.Id = Guid.NewGuid();
 
             await _buildingRepository.CreateAsync(building);
+
+            if (dto.fee_based_service != null && dto.fee_based_service.Count > 0)
+            {
+                var serviceIds = dto.fee_based_service.Select(s => s.ServiceId).ToList(); 
+                await _buildingRepository.AddServicesToBuilding(building.Id, serviceIds);
+            }
+
+            if (dto.free_service != null && dto.free_service.Count > 0) 
+            {
+                var serviceFreeIds = dto.free_service.Select(s =>s.ServiceId).ToList();
+                await _buildingRepository.AddServicesFreeBuilding(building.Id, serviceFreeIds);
+            }
 
             return building;
         }
@@ -49,23 +86,42 @@ namespace BPMaster.Services
 
             if (existingBuilding == null)
             {
-                throw new Exception("Error");
+                throw new Exception("Building not found");
             }
-            var Building = _mapper.Map(dto, existingBuilding);
 
-            await _buildingRepository.UpdateAsync(Building);
+            var building = _mapper.Map(dto, existingBuilding);
 
-            return Building;
+            await _buildingRepository.UpdateAsync(building);
+
+            await _buildingRepository.RemoveServicesFromBuilding(id);
+            await _buildingRepository.RemoveServicesFreeFromBuilding(id);
+
+            if (dto.fee_based_service != null && dto.fee_based_service.Count > 0)
+            {
+                var serviceIds = dto.fee_based_service.Select(s => s.ServiceId).ToList(); // Lấy danh sách Id từ BuildingFeeBaseServiceDto
+                await _buildingRepository.AddServicesToBuilding(id, serviceIds);
+            }
+            if (dto.free_service != null && dto.free_service.Count > 0)
+            {
+                var serviceFreeIds = dto.free_service.Select(s => s.ServiceId).ToList();
+                await _buildingRepository.AddServicesFreeBuilding(building.Id, serviceFreeIds);
+            }
+
+            return building;
         }
         public async Task DeleteBuildingAsync(Guid id)
         {
-            var Building = await _buildingRepository.GetByIDBuilding(id);
-            if (Building == null)
+            var building = await _buildingRepository.GetByIDBuilding(id);
+
+            if (building == null)
             {
-                throw new Exception("product not found !");
+                throw new Exception("Building not found");
             }
-            await _buildingRepository.DeleteAsync(Building);
+
+            await _buildingRepository.RemoveServicesFreeFromBuilding(id);
+            await _buildingRepository.RemoveServicesFromBuilding(id);
+            await _buildingRepository.DeleteAsync(building);
         }
-        
+
     }
 }
