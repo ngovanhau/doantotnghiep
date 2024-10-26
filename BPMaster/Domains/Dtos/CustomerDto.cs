@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Domains.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace BPMaster.Domains.Dtos
 {
     public class CustomerDto
     {
+        public Guid Id { get; set; }
         [Required]
         public string customer_name { get; set; } = string.Empty; 
         [Required]
@@ -20,6 +22,6 @@ namespace BPMaster.Domains.Dtos
         public DateTime date_of_issue { get; set; }
         public string place_of_issue { get; set; } = string.Empty;
         public string address { get; set; } = string.Empty;
-        public string image_CCCD { get; set; } = string.Empty;
+        public List<string> imageCCCDs { get; set; } = new List<string>();
     }
 }

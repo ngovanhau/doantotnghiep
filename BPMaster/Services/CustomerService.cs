@@ -17,12 +17,24 @@ namespace BPMaster.Services
     {
         private readonly CustomerRepository _CustomerRepository = new(connection);
 
-        public async Task<List<Customer>> GetAllCustomer()
+        public async Task<List<CustomerDto>> GetAllCustomer()
         {
-            return await _CustomerRepository.GetAllCustomer();
+            var customers =  await _CustomerRepository.GetAllCustomer();
+            var result = new List<CustomerDto>();
+
+            foreach ( var customer in customers)
+            {
+                var image = await _CustomerRepository.GetImagesByCustomer(customer.Id);
+
+                var dto = _mapper.Map<CustomerDto>(customer);
+
+                dto.imageCCCDs = image;
+                result.Add(dto);
+            }
+            return result;
         }
 
-        public async Task<Customer> GetByIDCustomer(Guid CustomerId)
+        public async Task<CustomerDto> GetByIDCustomer(Guid CustomerId)
         {
             var Customer = await _CustomerRepository.GetByIDCustomer(CustomerId);
 
@@ -30,7 +42,13 @@ namespace BPMaster.Services
             {
                 throw new NonAuthenticateException();
             }
-            return Customer;
+            var image = await _CustomerRepository.GetImagesByCustomer(CustomerId);
+
+            var dto = _mapper.Map<CustomerDto>(Customer);
+
+            dto.imageCCCDs = image;
+
+            return dto;
         }
 
         public async Task<Customer> CreateCustomerAsync(CustomerDto dto)
@@ -41,6 +59,10 @@ namespace BPMaster.Services
 
             await _CustomerRepository.CreateAsync(Customer);
 
+            if (dto.imageCCCDs != null && dto.imageCCCDs.Count > 0)
+            {
+                await _CustomerRepository.AddImagesToCustomer(Customer.Id, dto.imageCCCDs);
+            }
             return Customer;
         }
         public async Task<Customer> UpdateCustomerAsync(Guid id, CustomerDto dto)
@@ -53,7 +75,14 @@ namespace BPMaster.Services
             }
             var Customer = _mapper.Map(dto, existingCustomer);
 
+            await _CustomerRepository.RemoveImagesFromCustomer(id);
+
             await _CustomerRepository.UpdateAsync(Customer);
+
+            if(dto.imageCCCDs != null && dto.imageCCCDs.Count > 0) 
+            {
+             await _CustomerRepository.AddImagesToCustomer(id, dto.imageCCCDs);
+            }
 
             return Customer;
         }
@@ -64,6 +93,7 @@ namespace BPMaster.Services
             {
                 throw new Exception("Customer not found !");
             }
+            await _CustomerRepository.RemoveImagesFromCustomer(id);
             await _CustomerRepository.DeleteAsync(Customer);
         }
 

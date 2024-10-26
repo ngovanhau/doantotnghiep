@@ -19,7 +19,6 @@ namespace BPMaster.Domains.Entities
         public DateTime date_of_issue { get; set; }
         public string place_of_issue { get; set; } = string.Empty;
         public string address {  get; set; } = string.Empty;
-        public string image_CCCD { get; set; } = string.Empty;
 
     }
 }
