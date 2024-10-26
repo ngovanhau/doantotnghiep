@@ -96,12 +96,6 @@ namespace Common.Application.Configurations
 
         public virtual void ConfigServices(IServiceCollection services, Assembly assembly, BaseAppSetting setting)
         {
-            // Firebase
-            FirebaseApp.Create(new AppOptions()
-            {
-                Credential = GoogleCredential.FromFile(@"C:\TEST\DOAN\doantotnghiep\BPMaster\Firebase\mydb-71221-firebase-adminsdk-gbxif-0fd49e35fa.json"),
-            });
-
             // Generic services need to inject
             services.AddSingleton<ILogManager>(new LogManager(_environment.EnvironmentName));
             services.AddScoped<IUnitsOfWork, UnitsOfWork>();
