@@ -1,4 +1,5 @@
 ﻿using Application.Settings;
+using BPMaster.Domains.Dtos;
 using Common.Controllers;
 using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,15 @@ namespace Controllers.v1
         public async Task<IActionResult> AuthenticateAsync([FromBody] LoginUserDto dto)
         {
             return Success(await _service.AuthenticateAsync(dto));
+        }
+        /// <summary>
+        /// This API is for authenticating a user
+        /// </summary>
+        [HttpPost("changepassword")]
+        public async Task<IActionResult> ChangePasswordAsync([FromBody] ChangePassWordDto dto)
+        {
+            await _service.ChangePasswordAsync(dto);
+            return Success("Password changed successfully");
         }
     }
 }

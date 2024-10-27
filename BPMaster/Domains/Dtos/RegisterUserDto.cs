@@ -19,5 +19,7 @@ namespace Domain.Dtos
         public required string Role { get; set; }
         [Required]
         public required string Email { get; set; }
+        [Required]
+        public required string Phone { get; set; } 
     }
 }

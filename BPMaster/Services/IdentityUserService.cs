@@ -18,6 +18,7 @@ using System.Security.Cryptography;
 using MimeKit.Text;
 using MailKit.Net.Smtp;
 using BPMaster.Domains.Entities;
+using BPMaster.Domains.Dtos;
 
 
 namespace Services
@@ -75,15 +76,48 @@ namespace Services
 
             return JwtUtil.CreateJwtToken(_jwtTokenSetting, authenticatedUser);
         }
-        public async Task<IdentityUser> Getinformation(string username)
+        public async Task<InformationDto> Getinformation(string username)
         {
             var user = await _repo.GetByUsernameAsync(username);
+
+            var infomation = _mapper.Map<InformationDto>(user);
             if (user == null)
             {
                 throw new NonAuthenticateException();
             }
-            return user;
+            return infomation;
         }
-        
+        public async Task ChangePasswordAsync(ChangePassWordDto dto)
+        {   
+            if(dto.OldPassword == null)
+            {
+                throw new NonAuthenticateException("The old password is not left blank");
+            }
+            if (dto.NewPassword == null) {
+                throw new NonAuthenticateException("The new password is not left blank");
+            }
+
+            var user = await _repo.GetByUsernameAsync(dto.Username);
+            if (user == null || user.Status == Domain.Enums.UserStatus.Deleted)
+            {
+                throw new NonAuthenticateException();
+            }
+
+            // Xác minh mật khẩu cũ
+            var verifyOldPassword = PasswordUtil.VerifyPassword(dto.OldPassword, user.Password, Convert.FromHexString(user.Salts), _passwordSetting);
+            if (!verifyOldPassword)
+            {
+                throw new Exception("Old password is incorrect");
+            }
+
+            // Hash mật khẩu mới và cập nhật
+            var hashNewPassword = PasswordUtil.HashPBKDF2(dto.NewPassword, _passwordSetting, out var newSalts);
+            user.Password = hashNewPassword;
+            user.Salts = Convert.ToHexString(newSalts);
+
+            await _repo.UpdateAsync(user);
+        }
+
+
     }
 }

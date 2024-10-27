@@ -1,4 +1,5 @@
 ﻿using System.Security.Principal;
+using BPMaster.Domains.Dtos;
 using Common.Application.Models;
 using Common.Mappers.AutoMapper;
 using Domain.Dtos;
@@ -15,6 +16,9 @@ namespace AutoMappers
 
             CreateMap<IdentityUser, AuthenticatedUserModel>()
                 .ForMember(x => x.UserId, opt => opt.MapFrom(src => src.Id));
+            CreateMap<IdentityUser, InformationDto>()
+                .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+
         }
     }
 }

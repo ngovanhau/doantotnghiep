@@ -10,6 +10,7 @@ CREATE TABLE "identity_users"
     "Role" varchar(255),
     "FirstName" varchar(255),
     "LastName" varchar(255),
+    "Phone" varchar(255),
     "CreatedAt" timestamp with time zone,
     "UpdatedAt" timestamp with time zone,
     CONSTRAINT "identity_users_pkey" PRIMARY KEY ("Id")
