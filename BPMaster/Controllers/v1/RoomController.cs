@@ -59,7 +59,9 @@ namespace BPMaster.Controllers.v1
         [HttpGet("GetallRoomByBuildingID")]
         public async Task<IActionResult> GetallRoomByBuildingID(Guid id)
         {
-            return Success(await _service.GetAllRoomByBuildingID(id));
+            var (rooms, activeRoomCount) = await _service.GetAllRoomByBuildingID(id);
+
+            return Success(new { Rooms = rooms, ActiveRoomCount = activeRoomCount });
         }
         [HttpGet("GetRoomByStatus")]
         public async Task<IActionResult> GetRoomByStatus(int status)

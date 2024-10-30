@@ -12,7 +12,6 @@ namespace Common.Application.Settings
         public string Audience { get; set; } = string.Empty;
         public string SymmetricSecurityKey { get; set; } = string.Empty;
         public string JwtRegisteredClaimNamesSub { get; set; } = string.Empty;
-
-        public int ExpirationMinutes { get; set; } = 60;
+        public int ExpirationMinutes { get; set; } = 120;
     }
 }

@@ -7,6 +7,7 @@ using Repositories;
 using BPMaster.Domains.Entities;
 using Common.Application.Exceptions;
 using BPMaster.Domains.Dtos;
+using FirebaseAdmin.Auth.Multitenancy;
 
 namespace BPMaster.Services
 {
@@ -56,7 +57,7 @@ namespace BPMaster.Services
 
             return dto;
         }
-        public async Task<List<RoomDto>> GetAllRoomByBuildingID(Guid id)
+        public async Task<(List<RoomDto> Rooms, int ActiveRoomCount)> GetAllRoomByBuildingID(Guid id)
         {
             var result = new List<RoomDto>();
             var rooms = await _RoomRepository.GetAllRoomByBuildingID(id);
@@ -66,18 +67,21 @@ namespace BPMaster.Services
                 throw new NonAuthenticateException("Room Not found!");
             }
 
+            // Đếm số phòng có status = 1
+            int activeRoomCount = rooms.Count(room => room.status == 1);
+
             foreach (var room in rooms)
             {
-                var sevice = await _RoomRepository.GetServicesByRoom(room.Id);
-
+                var service = await _RoomRepository.GetServicesByRoom(room.Id);
                 var image = await _RoomRepository.GetImagesByRoom(room.Id);
 
                 var dto = _mapper.Map<RoomDto>(room);
-                dto.roomservice = sevice;
+                dto.roomservice = service;
                 dto.imageUrls = image;
                 result.Add(dto);
             }
-            return result;
+
+            return (result, activeRoomCount);
         }
 
         public async Task<List<RoomDto>> GetRoomByStatus(int status)
