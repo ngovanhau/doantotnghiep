@@ -18,8 +18,8 @@ namespace Repositories
     [ScopedService]
     public class UploadRepository
     {
-        private readonly string _bucketName = "mydb-71221.appspot.com";
-        private readonly string _credentialPath = @"C:\TEST\DOAN\doantotnghiep\BPMaster\Firebase\mydb-71221-firebase-adminsdk-gbxif-2368543148.json";
+        private readonly string _bucketName = "uploadimg-97839.appspot.com";
+        private readonly string _credentialPath = @"C:\TEST\DOAN\doantotnghiep\BPMaster\Firebase\uploadimg-97839-firebase-adminsdk-nkkmi-38cb153e9a.json";
 
         public async Task<string> UploadImageAsync(IFormFile file)
         {
@@ -33,9 +33,18 @@ namespace Repositories
                 await file.CopyToAsync(stream);
             }
 
-            using (var fileStream = new FileStream(filePath, FileMode.Open))
+            try
             {
-                await storageClient.UploadObjectAsync(_bucketName, fileName, "image/png", fileStream);
+                using (var fileStream = new FileStream(filePath, FileMode.Open))
+                {
+                    await storageClient.UploadObjectAsync(_bucketName, fileName, "image/png", fileStream);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error uploading file: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw; // Rethrow nếu muốn tiếp tục xử lý ở lớp gọi bên ngoài
             }
 
             var storageObject = storageClient.GetObject(_bucketName, fileName);
