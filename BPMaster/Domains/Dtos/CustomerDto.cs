@@ -15,7 +15,7 @@ namespace BPMaster.Domains.Dtos
         public string customer_name { get; set; } = string.Empty; 
         [Required]
         public string phone_number { get; set; } = string.Empty;
-        public string Choose_room { get; set; } = string.Empty;
+        public Guid choose_room { get; set; } 
         public string email { get; set; } = string.Empty;
         public string date_of_birth { get; set; } = string.Empty;
         public string CCCD { get; set; } = string.Empty;
@@ -23,5 +23,6 @@ namespace BPMaster.Domains.Dtos
         public string place_of_issue { get; set; } = string.Empty;
         public string address { get; set; } = string.Empty;
         public List<string> imageCCCDs { get; set; } = new List<string>();
+        public string RoomName { get; set; } = string.Empty;
     }
 }

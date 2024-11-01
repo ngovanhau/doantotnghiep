@@ -22,11 +22,24 @@ namespace BPMaster.Services
             var customers =  await _CustomerRepository.GetAllCustomer();
             var result = new List<CustomerDto>();
 
-            foreach ( var customer in customers)
+            foreach (var customer in customers)
             {
                 var image = await _CustomerRepository.GetImagesByCustomer(customer.Id);
-
                 var dto = _mapper.Map<CustomerDto>(customer);
+
+                if (customer.choose_room != Guid.Empty)
+                {
+                    var room = await _CustomerRepository.GetChooseRoombyId(customer.choose_room);
+
+                    if (room != null)
+                    {
+                        dto.RoomName = room.room_name;
+                    }
+                }
+                else
+                {
+                    dto.RoomName = "Chưa có phòng";
+                }
 
                 dto.imageCCCDs = image;
                 result.Add(dto);
@@ -46,7 +59,23 @@ namespace BPMaster.Services
 
             var dto = _mapper.Map<CustomerDto>(Customer);
 
+            if (Customer.choose_room != Guid.Empty)
+            {
+                var room = await _CustomerRepository.GetChooseRoombyId(Customer.choose_room);
+
+                // Kiểm tra nếu room không phải là null trước khi truy cập room_name
+                if (room != null)
+                {
+                    dto.RoomName = room.room_name; // Đảm bảo CustomerDto có thuộc tính RoomName
+                }
+                
+            }
+            else
+            {
+                dto.RoomName = "Chưa có phòng";
+            }
             dto.imageCCCDs = image;
+
 
             return dto;
         }
@@ -58,6 +87,11 @@ namespace BPMaster.Services
             Customer.Id = Guid.NewGuid();
 
             await _CustomerRepository.CreateAsync(Customer);
+
+            if(dto.choose_room != null)
+            {
+                await _CustomerRepository.UpdateRoomStatus(dto.choose_room);
+            }
 
             if (dto.imageCCCDs != null && dto.imageCCCDs.Count > 0)
             {

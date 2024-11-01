@@ -145,6 +145,8 @@ namespace BPMaster.Services
             
             await _RoomRepository.UpdateAsync(existingRoom);
 
+            await _RoomRepository.RemoveServicesFromRoom(id);
+
             if (dto.roomservice != null && dto.roomservice.Count > 0)
             {
                 var serviceIds = dto.roomservice.Select(s => s.ServiceId).ToList();  
