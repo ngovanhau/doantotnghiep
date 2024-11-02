@@ -17,7 +17,7 @@ namespace BPMaster.Services
         IDbConnection connection) : BaseService(services)
     {
         private readonly RoomRepository _RoomRepository = new(connection);
-
+        private readonly CustomerRepository _CustomerRepository = new(connection);
         public async Task<List<RoomDto>> GetAllRoom()
         {
             var rooms = await _RoomRepository.GetAllRoom();
@@ -31,6 +31,19 @@ namespace BPMaster.Services
 
                 dto.imageUrls = image;
                 dto.roomservice = Services;
+
+                if(room.CustomerId != Guid.Empty)
+                {
+                    var customer = await _CustomerRepository.GetByIDCustomer(room.CustomerId);
+                    if (customer != null) {
+                        dto.nameCustomer = customer.customer_name;
+                    }
+                    else
+                    {
+                        dto.nameCustomer = "chưa có";
+                    }
+                }
+
                 result.Add(dto);
             }
 
@@ -51,6 +64,12 @@ namespace BPMaster.Services
             var service = await _RoomRepository.GetServicesByRoom(RoomId);
 
             var dto = _mapper.Map<RoomDto>(Room);
+
+            if (Room.CustomerId != Guid.Empty)
+            {
+                var customer = await _CustomerRepository.GetByIDCustomer(Room.CustomerId);
+                dto.nameCustomer = customer.customer_name;
+            }
 
             dto.roomservice = service;
             dto.imageUrls = image;  
@@ -139,6 +158,19 @@ namespace BPMaster.Services
 
             var Room = _mapper.Map(dto, existingRoom);
 
+            if (dto.CustomerId != Guid.Empty)
+            {
+                var customer = await _CustomerRepository.GetByIDCustomer(dto.CustomerId);
+                if (customer != null)
+                {
+                    dto.nameCustomer = customer.customer_name;
+                }
+                else
+                {
+                    dto.nameCustomer = "chưa có";
+                }
+            }
+
             await _RoomRepository.UpdateAsync(Room);
 
             await _RoomRepository.RemoveImagesFromRoom(id);
@@ -146,6 +178,8 @@ namespace BPMaster.Services
             await _RoomRepository.UpdateAsync(existingRoom);
 
             await _RoomRepository.RemoveServicesFromRoom(id);
+
+
 
             if (dto.roomservice != null && dto.roomservice.Count > 0)
             {

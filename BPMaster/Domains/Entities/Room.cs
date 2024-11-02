@@ -27,5 +27,6 @@ namespace BPMaster.Domains.Entities
         public string describe { get; set; } = string.Empty;
         public string note { get; set; } = string.Empty;
         public Guid Building_Id { get; set; }
+        public Guid CustomerId {  get; set; }
     }
 }

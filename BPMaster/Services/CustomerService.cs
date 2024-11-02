@@ -16,6 +16,7 @@ namespace BPMaster.Services
         IDbConnection connection) : BaseService(services)
     {
         private readonly CustomerRepository _CustomerRepository = new(connection);
+        private readonly RoomRepository _RoomRepository = new(connection);
 
         public async Task<List<CustomerDto>> GetAllCustomer()
         {
@@ -88,15 +89,18 @@ namespace BPMaster.Services
 
             await _CustomerRepository.CreateAsync(Customer);
 
-            if(dto.choose_room != null)
+            if(dto.choose_room != Guid.Empty)
             {
-                await _CustomerRepository.UpdateRoomStatus(dto.choose_room);
+                await _CustomerRepository.UpdateRoomStatus(dto.choose_room, 1);
             }
 
             if (dto.imageCCCDs != null && dto.imageCCCDs.Count > 0)
             {
                 await _CustomerRepository.AddImagesToCustomer(Customer.Id, dto.imageCCCDs);
             }
+
+            await _RoomRepository.UpdateCustomerIDforRoom(Customer.choose_room, Customer.Id);
+
             return Customer;
         }
         public async Task<Customer> UpdateCustomerAsync(Guid id, CustomerDto dto)
@@ -107,7 +111,21 @@ namespace BPMaster.Services
             {
                 throw new Exception("Error");
             }
+
+            if (existingCustomer.choose_room != dto.choose_room)
+            {
+                await _CustomerRepository.UpdateRoomStatus(existingCustomer.choose_room, 0);
+
+                Guid idnoexist = Guid.NewGuid();
+
+                await _RoomRepository.UpdateCustomerIDforRoom(existingCustomer.choose_room, idnoexist);
+
+                await _CustomerRepository.UpdateRoomStatus(dto.choose_room, 1);
+            }
+
             var Customer = _mapper.Map(dto, existingCustomer);
+
+            await _RoomRepository.UpdateCustomerIDforRoom(existingCustomer.choose_room, Customer.Id);
 
             await _CustomerRepository.RemoveImagesFromCustomer(id);
 
@@ -127,10 +145,44 @@ namespace BPMaster.Services
             {
                 throw new Exception("Customer not found !");
             }
+
+            Guid idnoexist = Guid.NewGuid();
+
+            await _RoomRepository.UpdateCustomerIDforRoom(Customer.choose_room, idnoexist);
+
+            await _CustomerRepository.UpdateRoomStatus(Customer.choose_room, 0);
+
             await _CustomerRepository.RemoveImagesFromCustomer(id);
+
             await _CustomerRepository.DeleteAsync(Customer);
         }
 
+        public async Task<List<CustomerDto>> GetListByNoChooseRoom()
+        {
+            var customers = await _CustomerRepository.GetAllCustomer();
+            var result = new List<CustomerDto>();
+
+            foreach (var customer in customers)
+            {
+                var image = await _CustomerRepository.GetImagesByCustomer(customer.Id);
+
+                var dto = _mapper.Map<CustomerDto>(customer);
+
+                // Kiểm tra xem phòng có tồn tại không
+                if (customer.choose_room != Guid.Empty)
+                {
+                    var room = await _CustomerRepository.GetChooseRoombyId(customer.choose_room);
+
+                    if (room == null) // Nếu không tìm thấy phòng
+                    {
+                        dto.RoomName = "không có phòng";
+                        dto.imageCCCDs = image;
+                        result.Add(dto);
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
 

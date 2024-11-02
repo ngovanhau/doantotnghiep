@@ -35,5 +35,7 @@ namespace BPMaster.Domains.Dtos
         public string note { get; set; } = string.Empty;
         [Required]
         public Guid? Building_Id { get; set; } = null;
+        public Guid CustomerId { get; set; } 
+        public string nameCustomer { get; set; } = string.Empty;
     }
 }

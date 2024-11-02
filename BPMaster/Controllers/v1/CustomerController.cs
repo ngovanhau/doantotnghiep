@@ -21,6 +21,15 @@ namespace BPMaster.Controllers.v1
             return Success(Customer);
         }
         /// <summary>
+        /// this is api Get List By No Room
+        /// </summary>
+        [HttpGet("GetListByNoRoom")]
+        public async Task<IActionResult> GetListByNoRoom()
+        {
+            var Customer = await _service.GetListByNoChooseRoom();
+            return Success(Customer);
+        }
+        /// <summary>
         /// this is api get by id Customer
         /// </summary>
         [HttpGet("getCustomerbyid")]

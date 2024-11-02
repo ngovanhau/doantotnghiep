@@ -9,10 +9,13 @@ namespace BPMaster.Domains.Dtos
 {
     public class ContractDto
     {
+        public Guid Id { get; set; }
         [Required]
+        public string contract_name { get; set; } = string.Empty;
         public string rentalManagement { get; set; } = string.Empty;
         [Required]
         public string room { get; set; } = string.Empty;
+        public Guid roomId { get; set; }
         [Required]
         public DateTime start_day { get; set; }
         [Required]
@@ -25,9 +28,10 @@ namespace BPMaster.Domains.Dtos
         public int room_fee { get; set; }
         [Required]
         public int deposit { get; set; }
-        public string tenant { get; set; } = string.Empty;
+        public Guid CustomerId { get; set; }
         public string service { get; set; } = string.Empty;
         public string clause { get; set; } = string.Empty;
         public string image { get; set; } = string.Empty;
+        public string CustomerName { get; set; } = string.Empty;
     }
 }

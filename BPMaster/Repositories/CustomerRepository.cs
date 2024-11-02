@@ -57,7 +57,7 @@ namespace Repositories
             var result = await connection.QueryAsync<string>(sql, new { CustomerId = customerId });
             return result.ToList();
         }
-        public async Task UpdateRoomStatus(Guid roomId, int status = 1)
+        public async Task UpdateRoomStatus(Guid? roomId, int status)
         {
             var sql = "UPDATE room SET status = @Status WHERE \"Id\" = @RoomId";
             await connection.ExecuteAsync(sql, new { RoomId = roomId, Status = status });
@@ -67,6 +67,16 @@ namespace Repositories
             var sql = "SELECT * FROM room WHERE \"Id\" = @Id";
             var result = await connection.QueryFirstOrDefaultAsync<Room>(sql, new { Id = id });
             return result;
+        }
+        public async Task UpdateChooseRoomForCustomer(Guid customerId, Guid chooseroom)
+        {
+            var sql = "UPDATE customer SET \"choose_room\" = @Chooseroom WHERE \"Id\" = @CustomerId";
+            await connection.ExecuteAsync(sql, new { Chooseroom = chooseroom, CustomerId = customerId });
+        }
+        public async Task RemoveChooseRoomFromCustomer(Guid customerId, Guid chooseroom)
+        {
+            var sql = "UPDATE customer SET \"choose_room\" = @Chooseroom WHERE \"Id\" = @CustomerId";
+            await connection.ExecuteAsync(sql, new { CustomerId = customerId, Chooseroom = chooseroom });
         }
     }
 }
