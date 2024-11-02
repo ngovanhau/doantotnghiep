@@ -68,7 +68,14 @@ namespace BPMaster.Services
             if (Room.CustomerId != Guid.Empty)
             {
                 var customer = await _CustomerRepository.GetByIDCustomer(Room.CustomerId);
-                dto.nameCustomer = customer.customer_name;
+                if (customer != null)
+                {
+                    dto.nameCustomer= customer.customer_name;
+                }
+                else
+                {
+                    dto.nameCustomer = "chưa có";
+                }
             }
 
             dto.roomservice = service;
