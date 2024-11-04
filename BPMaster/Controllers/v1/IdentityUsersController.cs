@@ -23,6 +23,15 @@ namespace Controllers.v1
             return Success(await _service.Getinformation(username));
         }
         /// <summary>
+        /// this is api get all User
+        /// </summary>
+        [HttpGet("GetallUser")]
+        public async Task<IActionResult> GetallUser()
+        {
+            var user = await _service.GetAllUser();
+            return Success(user);
+        }
+        /// <summary>
         /// This API is for registering a new user
         /// </summary>
         [HttpPost("register")]
@@ -47,5 +56,6 @@ namespace Controllers.v1
             await _service.ChangePasswordAsync(dto);
             return Success("Password changed successfully");
         }
+        
     }
 }

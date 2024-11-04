@@ -1,0 +1,15 @@
+﻿version: '3.5'
+
+services:
+  app:
+    container_name: "rpms_container"
+    build:
+      context: .  # Thư mục hiện tại chứa Dockerfile
+      dockerfile: Dockerfile  # Tên Dockerfile (mặc định là 'Dockerfile')
+    ports:
+      - "8080:8080"  # Ánh xạ cổng từ máy chủ đến container
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+    volumes:
+      - "/mnt/data:/app/data"  # Gắn thư mục từ máy chủ vào container nếu cần

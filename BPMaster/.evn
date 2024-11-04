@@ -1,0 +1,4 @@
+﻿project_name=RPMS
+image_name=RPMSmaster
+port_mapping=8080:8081
+mount_data_folder=/mnt/data

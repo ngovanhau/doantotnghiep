@@ -118,6 +118,14 @@ namespace Services
             await _repo.UpdateAsync(user);
         }
 
+        public async Task<List<InformationDto>> GetAllUser()
+        {
+            var users = await _repo.GetAllUser();
+
+            var result = _mapper.Map<List<InformationDto>>(users);
+
+            return result;
+        }
 
     }
 }

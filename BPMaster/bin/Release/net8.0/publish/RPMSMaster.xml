@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RPMSMaster</name>
+    </assembly>
+    <members>
+        <member name="M:BPMaster.Controllers.v1.BuildingController.GetBuilding">
+            <summary>
+            this is api get all Building
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.BuildingController.GetBuildingById(System.Guid)">
+            <summary>
+            this is api get by id Building
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.BuildingController.CreateBuilding(BPMaster.Domains.Dtos.BuildingDto)">
+            <summary>
+            this is api create a new Building
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.BuildingController.UpdateBuilding(System.Guid,BPMaster.Domains.Dtos.BuildingDto)">
+            <summary>
+            this is api update Building
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.BuildingController.Deleteproduct(System.Guid)">
+            <summary>
+            this is api delete Building
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ContractController.GetallContract">
+            <summary>
+            this is api get all Contract
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ContractController.GetContractById(System.Guid)">
+            <summary>
+            this is api get by id Contract
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ContractController.CreateContract(BPMaster.Domains.Dtos.ContractDto)">
+            <summary>
+            this is api create a new Contract
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ContractController.UpdateContract(System.Guid,BPMaster.Domains.Dtos.ContractDto)">
+            <summary>
+            this is api update Contract
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ContractController.DeleteContract(System.Guid)">
+            <summary>
+            this is api delete Contract
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.CustomerController.GetBuilding">
+            <summary>
+            this is api get all Customer
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.CustomerController.GetListByNoRoom">
+            <summary>
+            this is api Get List By No Room
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.CustomerController.GetCustomerById(System.Guid)">
+            <summary>
+            this is api get by id Customer
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.CustomerController.CreateCustomer(BPMaster.Domains.Dtos.CustomerDto)">
+            <summary>
+            this is api create a new Customer
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.CustomerController.UpdateCustomer(System.Guid,BPMaster.Domains.Dtos.CustomerDto)">
+            <summary>
+            this is api update Customer
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.CustomerController.DeleteCustomer(System.Guid)">
+            <summary>
+            this is api delete Customer
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositController.GetallDeposit">
+            <summary>
+            this is api get all Deposit
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositController.GetDepositById(System.Guid)">
+            <summary>
+            this is api get by id Deposit
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositController.CreateDeposit(BPMaster.Domains.Dtos.DepositDto)">
+            <summary>
+            this is api create a new Deposit
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositController.UpdateDeposit(System.Guid,BPMaster.Domains.Dtos.DepositDto)">
+            <summary>
+            this is api update Deposit
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositController.DeleteDeposit(System.Guid)">
+            <summary>
+            this is api delete Deposit
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositorController.GetallDepositor">
+            <summary>
+            this is api get all Depositor
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositorController.GetDepositorById(System.Guid)">
+            <summary>
+            this is api get by id Depositor
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositorController.CreateDepositor(BPMaster.Domains.Dtos.DepositorDto)">
+            <summary>
+            this is api create a new Depositor
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositorController.UpdateDepositor(System.Guid,BPMaster.Domains.Dtos.DepositorDto)">
+            <summary>
+            this is api update Depositor
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.DepositorController.DeleteDepositor(System.Guid)">
+            <summary>
+            this is api delete Depositor
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ProblemController.GetProblem">
+            <summary>
+            this is api get all Problem
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ProblemController.GetProblemById(System.Guid)">
+            <summary>
+            this is api get by id Problem
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ProblemController.CreateProblem(BPMaster.Domains.Dtos.ProblemDto)">
+            <summary>
+            this is api create a new Problem
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ProblemController.UpdateProblem(System.Guid,BPMaster.Domains.Dtos.ProblemDto)">
+            <summary>
+            this is api update Problem
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ProblemController.Deleteproduct(System.Guid)">
+            <summary>
+            this is api delete Problem
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.RoomController.GetallRoom">
+            <summary>
+            this is api get all Room
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.RoomController.GetRoomById(System.Guid)">
+            <summary>
+            this is api get by id Room
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.RoomController.CreateRoom(BPMaster.Domains.Dtos.RoomDto)">
+            <summary>
+            this is api create a new Room
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.RoomController.UpdateRoom(System.Guid,BPMaster.Domains.Dtos.RoomDto)">
+            <summary>
+            this is api update Room
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.RoomController.DeleteRoom(System.Guid)">
+            <summary>
+            this is api delete Room
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.RoomController.GetallRoomByBuildingID(System.Guid)">
+            <summary>
+            this is api GetallRoomByBuildingID
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ServiceController.GetService">
+            <summary>
+            this is api get all Service
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ServiceController.GetServiceById(System.Guid)">
+            <summary>
+            this is api get by id Service
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ServiceController.CreateService(BPMaster.Domains.Dtos.ServiceDto)">
+            <summary>
+            this is api create a new Service
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ServiceController.UpdateService(System.Guid,BPMaster.Domains.Dtos.ServiceDto)">
+            <summary>
+            this is api update Service
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.ServiceController.DeleteService(System.Guid)">
+            <summary>
+            this is api delete Service
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.UploadController.UploadImage(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            this is api upload image
+            </summary>
+        </member>
+        <member name="M:BPMaster.Controllers.v1.UploadController.DeleteImage(System.String)">
+            <summary>
+            this is api delete image
+            </summary>
+        </member>
+        <member name="M:Controllers.v1.IdentityUsersController.GetInformationByUsername(System.String)">
+            <summary>
+            This API is for registering a new user
+            </summary>
+        </member>
+        <member name="M:Controllers.v1.IdentityUsersController.RegisterUserAsync(Domain.Dtos.RegisterUserDto)">
+            <summary>
+            This API is for registering a new user
+            </summary>
+        </member>
+        <member name="M:Controllers.v1.IdentityUsersController.AuthenticateAsync(Domain.Dtos.LoginUserDto)">
+            <summary>
+            This API is for authenticating a user
+            </summary>
+        </member>
+        <member name="M:Controllers.v1.IdentityUsersController.ChangePasswordAsync(BPMaster.Domains.Dtos.ChangePassWordDto)">
+            <summary>
+            This API is for authenticating a user
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -16,6 +16,7 @@ namespace AutoMappers
 
             CreateMap<IdentityUser, AuthenticatedUserModel>()
                 .ForMember(x => x.UserId, opt => opt.MapFrom(src => src.Id));
+
             CreateMap<IdentityUser, InformationDto>()
                 .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
 
