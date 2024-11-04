@@ -126,6 +126,16 @@ namespace Services
 
             return result;
         }
+        public async Task DeleteUserAsync(Guid id)
+        {
+            var user = await _repo.GetByIDUser(id);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
 
+            user.Status = UserStatus.Deleted;
+            await _repo.UpdateAsync(user);
+        }
     }
 }

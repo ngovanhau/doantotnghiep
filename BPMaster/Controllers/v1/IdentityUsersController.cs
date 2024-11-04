@@ -56,6 +56,12 @@ namespace Controllers.v1
             await _service.ChangePasswordAsync(dto);
             return Success("Password changed successfully");
         }
-        
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            await _service.DeleteUserAsync(id);
+            return Success("delete Success");
+        }
     }
 }

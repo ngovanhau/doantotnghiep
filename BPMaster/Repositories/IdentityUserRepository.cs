@@ -27,5 +27,11 @@ namespace Repositories
             var result = await connection.QueryAsync<IdentityUser>(sql);
             return result.ToList();
         }
+        public async Task<IdentityUser?> GetByIDUser(Guid id)
+        {
+            var param = new { Id = id };
+            var sql = SqlCommandHelper.GetSelectSqlWithCondition<IdentityUser>(new { Id = id });
+            return await GetOneByConditionAsync(sql, param);
+        }
     }
 }
