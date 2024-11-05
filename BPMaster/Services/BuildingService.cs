@@ -59,6 +59,20 @@ namespace BPMaster.Services
             return dto;
         }
 
+        public async Task<List<BuildingDto>> GetBuildingByUserId(Guid userId)
+        {
+            var buildings = await _buildingRepository.GetBuildingsByUserId(userId);
+
+            if (buildings == null || !buildings.Any())
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+            var dto = _mapper.Map<List<BuildingDto>>(buildings);
+
+            return dto;
+        }
+
         public async Task<Building> CreateBuildingAsync(BuildingDto dto)
         {
             var building = _mapper.Map<Building>(dto);
@@ -122,6 +136,7 @@ namespace BPMaster.Services
             await _buildingRepository.RemoveServicesFromBuilding(id);
             await _buildingRepository.DeleteAsync(building);
         }
+
 
     }
 }

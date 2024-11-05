@@ -85,5 +85,20 @@ namespace Repositories
             var result = await connection.QueryAsync<BuildingFreeServiceDto>(sql, new { BuildingId = buildingId });
             return result.ToList();
         }
+        public async Task<List<Building>> GetBuildingsByUserId(Guid userId)
+        {
+            var sqlPermission = @"SELECT ""BuildingId"" FROM permission WHERE ""UserId"" = @UserId";
+            var buildingIds = await connection.QueryAsync<Guid>(sqlPermission, new { UserId = userId });
+
+            if (!buildingIds.Any())
+            {
+                return new List<Building>();
+            }
+
+            var sqlBuilding = @"SELECT * FROM ""building"" WHERE ""Id"" = ANY(@BuildingIds::uuid[])";
+            var buildings = await connection.QueryAsync<Building>(sqlBuilding, new { BuildingIds = buildingIds.ToArray() });
+
+            return buildings.ToList();
+        }
     }
 }

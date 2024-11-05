@@ -7,6 +7,8 @@ using Repositories;
 using BPMaster.Domains.Entities;
 using Common.Application.Exceptions;
 using BPMaster.Domains.Dtos;
+using Domain.Entities;
+using Utilities;
 
 namespace BPMaster.Services
 {
@@ -15,8 +17,11 @@ namespace BPMaster.Services
         ApplicationSetting setting,
         IDbConnection connection) : BaseService(services)
     {
+        private readonly PasswordSetting _passwordSetting = setting.PasswordSetting;
         private readonly CustomerRepository _CustomerRepository = new(connection);
         private readonly RoomRepository _RoomRepository = new(connection);
+        private readonly IdentityUserRepository _IdentityUserRepository = new(connection);  
+        private readonly SendEmailRepository _SendEmailRepository = new(connection);
 
         public async Task<List<CustomerDto>> GetAllCustomer()
         {
@@ -83,7 +88,51 @@ namespace BPMaster.Services
 
         public async Task<Customer> CreateCustomerAsync(CustomerDto dto)
         {
+            var existingUser = await _IdentityUserRepository.GetByUsernameAsync(dto.email);
+            if (existingUser != null)
+            {
+                throw new Exception("Email đã tồn tại. Vui lòng chọn một email khác.");
+            }
+
+            var nameParts = dto.customer_name.Split(' ');
+            var firstName = nameParts.First(); 
+            var lastName = nameParts.Last();
+            var Passdefault = "RPMS@2024";
+
+            var createaccount = new IdentityUser
+            {
+                Id = Guid.NewGuid(),
+                Username = dto.email,
+                Password = PasswordUtil.HashPBKDF2(Passdefault, _passwordSetting, out var salts),
+                Salts = Convert.ToHexString(salts),
+                FirstName = firstName,
+                LastName = lastName,
+                Role = "USER",
+                Email = dto.email,
+                Phone = dto.phone_number,
+            };
+            // gửi gmail
+            string subject = "Thông tin tài khoản đăng nhập";
+            string body = $"Chào {dto.customer_name},<br/><br/>" +
+                          $"Tài khoản của bạn đã được tạo thành công.<br/>" +
+                          $"<strong>Username:</strong> {dto.email}<br/>" +
+                          $"<strong>Password:</strong> {Passdefault}<br/><br/>" +
+                          "Vui lòng đăng nhập và thay đổi mật khẩu để đảm bảo an toàn.";
+
+            try
+            {
+                await _SendEmailRepository.SendEmailAsync(dto.email, subject, body);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Tạo khách hàng thất bại vui lòng kiểm tra lại gmail.");
+            }
+
+            await _IdentityUserRepository.CreateAsync(createaccount);
+
             var Customer = _mapper.Map<Customer>(dto);
+            
+            Customer.UserId = createaccount.Id;
 
             Customer.Id = Guid.NewGuid();
 

@@ -125,11 +125,13 @@ namespace BPMaster.Services
                 throw new Exception("Contract not found !");
             }
 
-             Guid IdRoomnoexist = Guid.NewGuid();
+            Guid IdRoomnoexist = Guid.NewGuid();
 
             await _RoomRepository.UpdateCustomerIDforRoom(Contract.roomId, IdRoomnoexist);
 
             Guid Idnoexist = Guid.NewGuid();
+
+            await _RoomRepository.UpdateStatusForRoom(Contract.roomId, 0);
 
             await _CustomerRepository.RemoveChooseRoomFromCustomer(Contract.CustomerId, Idnoexist);
 

@@ -30,6 +30,14 @@ namespace BPMaster.Controllers.v1
             return Success(await _service.GetByIDBuilding(id));
         }
         /// <summary>
+        /// this is api get by user 
+        /// </summary>
+        [HttpGet("getBuildingbyuserid")]
+        public async Task<IActionResult> GetBuildingByUserId(Guid id)
+        {
+            return Success(await _service.GetBuildingByUserId(id));
+        }
+        /// <summary>
         /// this is api create a new Building
         /// </summary>
         [HttpPost("create")]

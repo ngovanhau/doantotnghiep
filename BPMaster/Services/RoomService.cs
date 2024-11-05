@@ -83,6 +83,19 @@ namespace BPMaster.Services
 
             return dto;
         }
+        public async Task<List<RoomDto>> GetRoomsByUserId(Guid userId)
+        {
+            var rooms = await _RoomRepository.GetRoomsByUserId(userId);
+
+            if (rooms == null || !rooms.Any())
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+            var dto = _mapper.Map<List<RoomDto>>(rooms);
+
+            return dto;
+        }
         public async Task<(List<RoomDto> Rooms, int ActiveRoomCount)> GetAllRoomByBuildingID(Guid id)
         {
             var result = new List<RoomDto>();

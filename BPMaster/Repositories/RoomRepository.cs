@@ -107,5 +107,20 @@ namespace Repositories
             var sql = "UPDATE room SET \"CustomerId\" = @CustomerId Where \"Id\"= @RoomId";
             await connection.ExecuteAsync(sql, new { RoomId = roomId, CustomerId = customerId });
         }
+        public async Task<List<Room>> GetRoomsByUserId(Guid userId)
+        {
+            var sqlPermission = @"SELECT ""BuildingId"" FROM permission WHERE ""UserId"" = @UserId";
+            var RoomIds = await connection.QueryAsync<Guid>(sqlPermission, new { UserId = userId });
+
+            if (!RoomIds.Any())
+            {
+                return new List<Room>();
+            }
+
+            var sqlBuilding = @"SELECT * FROM ""room"" WHERE ""Building_Id"" = ANY(@RoomIds::uuid[])";
+            var rooms = await connection.QueryAsync<Room>(sqlBuilding, new { RoomIds = RoomIds.ToArray() });
+
+            return rooms.ToList();
+        }
     }
 }

@@ -21,6 +21,14 @@ namespace BPMaster.Controllers.v1
             return Success(Room);
         }
         /// <summary>
+        /// this is api get all room by userid
+        /// </summary>
+        [HttpGet("getallroombyuserid")]
+        public async Task<IActionResult> GetRoomsByUserId(Guid id)
+        {
+            return Success(await _service.GetRoomsByUserId(id));
+        }
+        /// <summary>
         /// this is api get by id Room
         /// </summary>
         [HttpGet("getRoombyid")]
