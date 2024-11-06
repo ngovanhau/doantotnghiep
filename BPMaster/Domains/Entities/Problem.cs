@@ -13,9 +13,9 @@ namespace BPMaster.Domains.Entities
         public string room_name { get; set; } = string.Empty;
         public string problem { get; set; } = string.Empty;
         public string decription { get; set; } = string.Empty;
-        public string image { get; set; } = string.Empty;
         public int fatal_level { get; set; } 
-        public int status { get; set; } = 0;
+        public int status { get; set; }
+        public Guid roomid { get; set; }
     }
 }
 

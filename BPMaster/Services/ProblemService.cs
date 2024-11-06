@@ -17,12 +17,24 @@ namespace BPMaster.Services
     {
         private readonly ProblemRepository _ProblemRepository = new(connection);
 
-        public async Task<List<Problem>> GetAllProblem()
+        public async Task<List<ProblemDto>> GetAllProblem()
         {
-            return await _ProblemRepository.GetAllProblem();
+            var problems = await _ProblemRepository.GetAllProblem();
+            var result = new List<ProblemDto>();
+
+            foreach (var problem in problems) 
+            {
+                var image = await _ProblemRepository.GetImagesByProblem(problem.Id);
+
+                var dto = _mapper.Map<ProblemDto>(problem);
+
+                dto.image = image;
+                result.Add(dto);
+            }
+            return result;
         }
 
-        public async Task<Problem> GetByIDProblem(Guid ProblemId)
+        public async Task<ProblemDto> GetByIDProblem(Guid ProblemId)
         {
             var Problem = await _ProblemRepository.GetByIDProblem(ProblemId);
 
@@ -30,9 +42,41 @@ namespace BPMaster.Services
             {
                 throw new NonAuthenticateException();
             }
-            return Problem;
+
+            var image = await _ProblemRepository.GetImagesByProblem(ProblemId);
+
+            var dto = _mapper.Map<ProblemDto>(Problem);
+
+            if (image != null && image.Count > 0)
+            {
+                dto.image = image;
+            }
+            return dto;
         }
 
+        public async Task<List<ProblemDto>> GetProblemByRoomId (Guid id)
+        {
+            var problems = await _ProblemRepository.GetByRoomId(id);
+            var result = new List<ProblemDto>();
+
+            if (problems == null)
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+
+            foreach (var problem in problems) 
+            {
+                var image = await _ProblemRepository.GetImagesByProblem(problem.Id);
+
+                var dto = _mapper.Map<ProblemDto>(problem);
+
+                dto.image = image;
+
+                result.Add(dto);
+            }   
+            return result;
+        }
         public async Task<Problem> CreateProblemAsync(ProblemDto dto)
         {
             var Problem = _mapper.Map<Problem>(dto);
@@ -40,6 +84,11 @@ namespace BPMaster.Services
             Problem.Id = Guid.NewGuid();
 
             await _ProblemRepository.CreateAsync(Problem);
+
+            if (dto.image != null && dto.image.Count > 0) 
+            {
+                await _ProblemRepository.AddImagesForProblem(Problem.Id, dto.image);
+            }
 
             return Problem;
         }
@@ -49,11 +98,18 @@ namespace BPMaster.Services
 
             if (existingProblem == null)
             {
-                throw new Exception("Error");
+                throw new Exception("not found");
             }
             var Problem = _mapper.Map(dto, existingProblem);
 
+            await _ProblemRepository.RemoveImagesFromProblem(id);
+
             await _ProblemRepository.UpdateAsync(Problem);
+
+            if (dto.image != null && dto.image.Count > 0)
+            {
+                await _ProblemRepository.AddImagesForProblem(id, dto.image);
+            }
 
             return Problem;
         }
@@ -64,6 +120,8 @@ namespace BPMaster.Services
             {
                 throw new Exception("Problem not found !");
             }
+            await _ProblemRepository.RemoveImagesFromProblem(id);
+
             await _ProblemRepository.DeleteAsync(Problem);
         }
 
