@@ -223,6 +223,23 @@ namespace BPMaster.Services
             await _RoomRepository.RemoveServicesFromRoom(id);
             await _RoomRepository.DeleteAsync(Room);
         }
+        //get room by userid 
+        public async Task<RoomDto> GetRoomByUserIdMB(Guid userId)
+        {
+            var getchooseroom = await _RoomRepository.GetChooseRoomByUserId(userId);
+            var result = new RoomDto();
+
+            if (getchooseroom == null) 
+            {
+                throw new Exception("User don't have room");
+            }
+
+            var room = await _RoomRepository.GetByIDRoom(userId);
+
+            var dto = _mapper.Map<RoomDto>(room);
+
+            return dto;
+        }
     }
 }
 

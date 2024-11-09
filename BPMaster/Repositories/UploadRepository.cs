@@ -19,7 +19,7 @@ namespace Repositories
     public class UploadRepository
     {
         private readonly string _bucketName = "uploadimg-97839.appspot.com";
-        private readonly string _credentialPath = @"C:\TEST\DOAN\doantotnghiep\BPMaster\Firebase\uploadimg-97839-firebase-adminsdk-nkkmi-556424927d.json";
+        private readonly string _credentialPath = Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS");
 
         public async Task<string> UploadImageAsync(IFormFile file)
         {
