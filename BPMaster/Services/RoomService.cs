@@ -234,7 +234,7 @@ namespace BPMaster.Services
                 throw new Exception("User don't have room");
             }
 
-            var room = await _RoomRepository.GetByIDRoom(userId);
+            var room = await _RoomRepository.GetByIDRoom(getchooseroom);
 
             var dto = _mapper.Map<RoomDto>(room);
 

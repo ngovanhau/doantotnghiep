@@ -36,6 +36,31 @@ namespace Repositories
         {
             await DeleteAsync(Deposit);
         }
+        public async Task AddImagesToDeposit(Guid Id, List<string> imageUrls)
+        {
+            foreach (var imageUrl in imageUrls)
+            {
+                var entry = new { depositid = Id, ImageUrl = imageUrl };
+                var sql = "INSERT INTO depositimage (depositid, imageUrl) VALUES (@depositid, @imageurl)";
+                await connection.ExecuteAsync(sql, entry);
+            }
+        }
+        public async Task RemoveImagesFromDeposit(Guid Id)
+        {
+            var sql = "DELETE FROM depositimage WHERE depositid = @DepositId";
+            await connection.ExecuteAsync(sql, new { DepositId = Id });
+        }
+
+        public async Task<List<string>> GetImagesByDeposit(Guid Id)
+        {
+            var sql = "SELECT ImageUrl FROM depositimage WHERE depositid = @DepositId";
+            var result = await connection.QueryAsync<string>(sql, new { DepositId = Id });
+            return result.ToList();
+        }
+        public async Task UpdateStatusForDeposit(Guid depositId, int status)
+        {
+            var sql = "UPDATE deposit SET status = @Status WHERE \"Id\"= @DepositId";
+            await connection.ExecuteAsync(sql, new { DepositId = depositId, Status = status });
+        }
     }
 }
-

@@ -122,7 +122,7 @@ namespace Repositories
 
             return rooms.ToList();
         }
-        public async Task<Guid?> GetChooseRoomByUserId(Guid userId)
+        public async Task<Guid> GetChooseRoomByUserId(Guid userId)
         {
             var sql= @"SELECT ""choose_room"" FROM customer WHERE ""UserId"" = @UserId";
             var RoomId = await connection.QuerySingleOrDefaultAsync<Guid>(sql, new { UserId = userId });

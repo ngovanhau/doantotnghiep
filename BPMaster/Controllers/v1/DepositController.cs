@@ -37,6 +37,15 @@ namespace BPMaster.Controllers.v1
             return CreatedSuccess(await _service.CreateDepositAsync(dto));
         }
         /// <summary>
+        /// this is api update status Deposit
+        /// </summary>
+        [HttpPut("updatestatus")]
+        public async Task<IActionResult> UpdateDeposit(Guid id, int status)
+        {
+            await _service.updateStatus(id, status);
+            return Success("update status Success");
+        }
+        /// <summary>
         /// this is api update Deposit
         /// </summary>
         [HttpPut("update")]
