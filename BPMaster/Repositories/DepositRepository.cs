@@ -62,5 +62,24 @@ namespace Repositories
             var sql = "UPDATE deposit SET status = @Status WHERE \"Id\"= @DepositId";
             await connection.ExecuteAsync(sql, new { DepositId = depositId, Status = status });
         }
+
+        public async Task<List<Deposit>> GetDepositsByBuildingId(Guid buildingId)
+        {
+            var roomIdsSql = "SELECT \"Id\" FROM room WHERE \"Building_Id\" = @BuildingId";
+
+            // Truy vấn danh sách Room IDs với kiểu Guid
+            var roomIds = await connection.QueryAsync<Guid>(roomIdsSql, new { BuildingId = buildingId });
+
+            if (!roomIds.Any())
+            {
+                return new List<Deposit>(); // Trả về danh sách rỗng nếu không có phòng nào
+            }
+
+            // Sử dụng ANY thay vì IN cho PostgreSQL
+            var depositsSql = "SELECT * FROM deposit WHERE roomid = ANY(@RoomIds)";
+            var deposits = await connection.QueryAsync<Deposit>(depositsSql, new { RoomIds = roomIds.ToArray() });
+
+            return deposits.ToList();
+        }
     }
 }

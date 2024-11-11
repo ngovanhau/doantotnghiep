@@ -21,6 +21,15 @@ namespace BPMaster.Controllers.v1
             return Success(Deposit);
         }
         /// <summary>
+        /// this is api get all Depositor by building id
+        /// </summary>
+        [HttpGet("Depositorallbybuildingid")]
+        public async Task<IActionResult> GetallDepositorByBuildingId(Guid id)
+        {
+            var Depositor = await _service.GetAllByBuildingId(id);
+            return Success(Depositor);
+        }
+        /// <summary>
         /// this is api get by id Deposit
         /// </summary>
         [HttpGet("getDepositbyid")]

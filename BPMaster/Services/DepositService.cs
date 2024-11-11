@@ -36,6 +36,27 @@ namespace BPMaster.Services
             return result;
         }
 
+        //get deposit by buildingid
+
+        public async Task<List<DepositDto>> GetAllByBuildingId(Guid id)
+        {
+            var deposits = await _DepositRepository.GetDepositsByBuildingId(id);
+
+            var result = new List<DepositDto>();
+
+            foreach(var deposit in deposits)
+            {
+                var image = await _DepositRepository.GetImagesByDeposit(deposit.Id);
+
+                var dto = _mapper.Map<DepositDto>(deposit);
+
+                dto.image = image;
+
+                result.Add(dto);
+            }
+            return result;
+        }
+
         public async Task<DepositDto> GetByIDDeposit(Guid DepositId)
         {
             var Deposit = await _DepositRepository.GetByIDDeposit(DepositId);
