@@ -20,7 +20,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using NETCore.MailKit.Core;
 using RPMSMaster.Common.Application.Settings;

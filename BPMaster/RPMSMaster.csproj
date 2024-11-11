@@ -18,6 +18,7 @@
 	<PackageReference Include="AutoMapper" Version="13.0.1" />
 	<PackageReference Include="FirebaseAdmin" Version="3.0.0" />
 	<PackageReference Include="FirebaseAuth" Version="2.0.6" />
+	<PackageReference Include="Google.Cloud.SecretManager.V1" Version="2.5.0" />
 	<PackageReference Include="Google.Cloud.Storage.V1" Version="4.10.0" />
 	<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
 	<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
@@ -33,10 +34,6 @@
 	<PackageReference Include="Npgsql" Version="8.0.3" />
 	<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Firebase\" />
   </ItemGroup>
 
 </Project>

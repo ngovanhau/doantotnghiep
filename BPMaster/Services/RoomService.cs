@@ -227,7 +227,6 @@ namespace BPMaster.Services
         public async Task<RoomDto> GetRoomByUserIdMB(Guid userId)
         {
             var getchooseroom = await _RoomRepository.GetChooseRoomByUserId(userId);
-            var result = new RoomDto();
 
             if (getchooseroom == null) 
             {
