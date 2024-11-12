@@ -16,6 +16,7 @@ namespace BPMaster.Domains.Entities
         public Guid room_id { get; set; }
         public int status {  get; set; }
         public string recorded_by { get; set; } = string.Empty;
+        public Guid recordid { get; set; }
         public DateTime record_date { get; set; }
         public decimal  electricity_old { get; set; }
         public decimal  electricity_new { get; set; } 
