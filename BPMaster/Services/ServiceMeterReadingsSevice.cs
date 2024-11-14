@@ -62,6 +62,7 @@ namespace BPMaster.Services
             var Service = _mapper.Map<ServiceMeterReadings>(dto);
 
             var oldMeterReadings = await _ServiceRepository.GetOldMeterReadings(Service.room_id);
+
             if (oldMeterReadings != null)
             {
                 Service.electricity_old = oldMeterReadings.electricity_new;

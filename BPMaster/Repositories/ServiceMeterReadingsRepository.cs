@@ -9,6 +9,8 @@ using Common.Application.CustomAttributes;
 using Common.Services;
 using Repositories;
 using Utilities;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Collections.Generic;
 
 
 namespace Repositories
@@ -39,11 +41,11 @@ namespace Repositories
         public async Task<ServiceMeterReadings?> GetOldMeterReadings(Guid roomId)
         {
             var sql = @"
-                SELECT * 
-                FROM servicemeterreadings
-                WHERE room_id = @RoomId
-                ORDER BY record_date DESC
-                LIMIT 1;";  
+            SELECT * 
+            FROM servicemeterreadings
+            WHERE room_id = @RoomId
+            ORDER BY ""CreatedAt"" DESC
+            LIMIT 1;";
 
             var param = new { RoomId = roomId };
             var result = await connection.QueryFirstOrDefaultAsync<ServiceMeterReadings>(sql, param);
