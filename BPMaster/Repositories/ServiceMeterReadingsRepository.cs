@@ -51,5 +51,17 @@ namespace Repositories
             var result = await connection.QueryFirstOrDefaultAsync<ServiceMeterReadings>(sql, param);
             return result;
         }
+        public async Task<List<ServiceMeterReadings>> getlistbybuildingid(Guid Id)
+        {
+            var sql = "SELECT * FROM servicemeterreadings WHERE building_id = @bdId";
+            var result = await connection.QueryAsync<ServiceMeterReadings>(sql, new { bdId = Id });
+            return result.ToList();
+        }
+        public async Task<List<ServiceMeterReadings>> getlistbyroomid(Guid Id)
+        {
+            var sql = "SELECT * FROM servicemeterreadings WHERE room_id = @RId";
+            var result = await connection.QueryAsync<ServiceMeterReadings>(sql, new { RId = Id });
+            return result.ToList();
+        }
     }
 }

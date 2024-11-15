@@ -127,5 +127,32 @@ namespace BPMaster.Services
             }
             return Service;
         }
+
+        public async Task<List<ServiceMeterReadingsDto>> getlistbybuildingid (Guid Id)
+        {
+            var service = await _ServiceRepository.getlistbybuildingid (Id);
+
+            if (service == null) 
+            {
+                throw new NonAuthenticateException("not found !");
+            }
+
+            var dto = _mapper.Map<List<ServiceMeterReadingsDto>>(service);
+
+            return dto;
+        }
+        public async Task<List<ServiceMeterReadingsDto>> getlistbyroomid(Guid Id)
+        {
+            var service = await _ServiceRepository.getlistbyroomid(Id);
+
+            if (service == null)
+            {
+                throw new NonAuthenticateException("not found !");
+            }
+
+            var dto = _mapper.Map<List<ServiceMeterReadingsDto>>(service);
+
+            return dto;
+        }
     }
 }

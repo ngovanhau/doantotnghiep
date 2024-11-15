@@ -21,6 +21,22 @@ namespace BPMaster.Controllers.v1
             return Success(Service);
         }
         /// <summary>
+        /// this is api get by building id
+        /// </summary>
+        [HttpGet("getlistServicebybuildingid")]
+        public async Task<IActionResult> GetByBuildingId(Guid id)
+        {
+            return Success(await _service.getlistbybuildingid(id));
+        }
+        /// <summary>
+        /// this is api get by room id
+        /// </summary>
+        [HttpGet("getlistServicebyroomid")]
+        public async Task<IActionResult> GetListByRoomId(Guid id)
+        {
+            return Success(await _service.getlistbyroomid(id));
+        }
+        /// <summary>
         /// this is api get by id ServiceMeterReadings
         /// </summary>
         [HttpGet("getServicebyid")]
