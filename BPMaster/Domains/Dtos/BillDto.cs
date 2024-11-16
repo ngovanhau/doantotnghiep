@@ -9,7 +9,12 @@ namespace BPMaster.Domains.Dtos
 {
     public class BillDto
     {
+        public string bill_name { get; set; } = string.Empty;
         public int status { get; set; }
+        public int status_payment { get; set; }
+        public Guid building_id { get; set; }
+        public string customer_name { get; set; } = string.Empty;
+        public Guid customer_id { get; set; }
         public DateTime date { get; set; }
         public Guid roomid { get; set; }
         public string roomname { get; set; } = string.Empty;
