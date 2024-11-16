@@ -30,6 +30,22 @@ namespace BPMaster.Controllers.v1
             return Success(await _service.GetById(id));
         }
         /// <summary>
+        /// this is api get by id Bill
+        /// </summary>
+        [HttpGet("getbillbybuildingid")]
+        public async Task<IActionResult> GetByBuildingId(Guid id)
+        {
+            return Success(await _service.GetByBuildingId(id));
+        }
+        /// <summary>
+        /// this is api get by id Bill
+        /// </summary>
+        [HttpGet("getbillbyroomid")]
+        public async Task<IActionResult> GetByroomId(Guid id)
+        {
+            return Success(await _service.GetByRoomId(id));
+        }
+        /// <summary>
         /// this is api create a new Bill
         /// </summary>
         [HttpPost("create")]

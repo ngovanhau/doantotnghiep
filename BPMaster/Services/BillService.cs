@@ -36,6 +36,30 @@ namespace BPMaster.Services
             var dto = _mapper.Map<BillDto>(bill);
             return dto;
         }
+        public async Task<List<BillDto>> GetByBuildingId(Guid Id)
+        {
+            var bill = await _Repository.GetBillByBuildingId(Id);
+
+            if (bill == null)
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+            var dto = _mapper.Map<List<BillDto>>(bill);
+            return dto;
+        }
+        public async Task<List<BillDto>> GetByRoomId(Guid Id)
+        {
+            var bill = await _Repository.GetBillByRoomId(Id);
+
+            if (bill == null)
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+            var dto = _mapper.Map<List<BillDto>>(bill);
+            return dto;
+        }
         public async Task<Bill> UpdateAsync(Guid id, BillDto dto)
         {
             var existing = await _Repository.GetByID(id);

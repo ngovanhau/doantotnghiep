@@ -36,5 +36,17 @@ namespace Repositories
         {
             await DeleteAsync(bill);
         }
+        public async Task<List<Bill>> GetBillByBuildingId(Guid id)
+        {
+            var sql = "SELECT * FROM bill WHERE building_id = @Id";
+            var result = await connection.QueryAsync<Bill>(sql, new { Id = id });
+            return result.ToList();
+        }
+        public async Task<List<Bill>> GetBillByRoomId(Guid id)
+        {
+            var sql = "SELECT * FROM bill WHERE roomid = @Id";
+            var result = await connection.QueryAsync<Bill>(sql, new { Id = id });
+            return result.ToList();
+        }
     }
 }
