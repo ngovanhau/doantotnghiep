@@ -24,7 +24,7 @@ namespace BPMaster.Controllers.v1
         /// <summary>
         /// this is api get by id Bill
         /// </summary>
-        [HttpGet("getBuildingbyid")]
+        [HttpGet("getbillbyid")]
         public async Task<IActionResult> GetById(Guid id)
         {
             return Success(await _service.GetById(id));
