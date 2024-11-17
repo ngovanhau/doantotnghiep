@@ -10,59 +10,51 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BPMaster.Controllers.v1
 {
-    public class BillController(IServiceProvider service) : BaseV1Controller<BillService, ApplicationSetting>(service)
+    public class TransactionGroupController(IServiceProvider service) : BaseV1Controller<TransactionGroupService, ApplicationSetting>(service)
     {
         /// <summary>
-        /// this is api get all Bill
+        /// this is api get all transactiongroup
         /// </summary>
-        [HttpGet("Billall")]
+        [HttpGet("getalltransactiongroup")]
         public async Task<IActionResult> GetAll()
         {
-            var Building = await _service.GetAll();
-            return Success(Building);
+            var transactiongroup = await _service.GetAll();
+            return Success(transactiongroup);
         }
         /// <summary>
-        /// this is api get by id Bill
+        /// this is api get by id transactiongroup
         /// </summary>
-        [HttpGet("getbillbyid")]
+        [HttpGet("getbyidtransactiongroup")]
         public async Task<IActionResult> GetById(Guid id)
         {
             return Success(await _service.GetById(id));
         }
         /// <summary>
-        /// this is api get by id Bill
+        /// this is api get by id transactiongroup
         /// </summary>
-        [HttpGet("getbillbybuildingid")]
-        public async Task<IActionResult> GetByBuildingId(Guid id)
+        [HttpGet("getbytypetransactiongroup")]
+        public async Task<IActionResult> GetBytransactiongroupId(int type)
         {
-            return Success(await _service.GetByBuildingId(id));
+            return Success(await _service.GetBytype(type));
         }
         /// <summary>
-        /// this is api get by id Bill
-        /// </summary>
-        [HttpGet("getbillbyroomid")]
-        public async Task<IActionResult> GetByroomId(Guid id)
-        {
-            return Success(await _service.GetByRoomId(id)); 
-        }
-        /// <summary>
-        /// this is api create a new Bill
+        /// this is api create a new transactiongroup
         /// </summary>
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] BillDto dto)
+        public async Task<IActionResult> Create([FromBody] TransactionGroupDto dto)
         {
             return CreatedSuccess(await _service.CreateAsync(dto));
         }
         /// <summary>
-        /// this is api update Bill
+        /// this is api update transactiongroup
         /// </summary>
         [HttpPut("update")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] BillDto dto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] TransactionGroupDto dto)
         {
             return Success(await _service.UpdateAsync(id, dto));
         }
         /// <summary>
-        /// this is api delete Bill
+        /// this is api delete transactiongroup
         /// </summary>
         [HttpDelete("delete")]
         public async Task<IActionResult> Delete(Guid id)
