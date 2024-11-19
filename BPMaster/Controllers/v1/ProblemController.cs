@@ -37,6 +37,14 @@ namespace BPMaster.Controllers.v1
             return Success(await _service.GetProblemByRoomId(id));
         }
         /// <summary>
+        /// this is api get problem by 
+        /// </summary>
+        [HttpGet("getProblembybuildingid")]
+        public async Task<IActionResult> GetProblemByBuildingId(Guid id)
+        {
+            return Success(await _service.getByBuildingId(id));
+        }
+        /// <summary>
         /// this is api create a new Problem
         /// </summary>
         [HttpPost("create")]

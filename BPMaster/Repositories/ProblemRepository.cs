@@ -64,6 +64,17 @@ namespace Repositories
             var result = await connection.QueryAsync <Problem>(sql, new { RoomId = id });
             return result.ToList();
         }
+        public async Task<List<Problem>> GetProblemsByBuildingId(Guid buildingId)
+        {
+            var sql = @"
+            SELECT p.*
+            FROM problem p
+            INNER JOIN room r ON p.""roomid"" = r.""Id""
+            WHERE r.""Building_Id"" = @BuildingId;";
+
+            var result = await connection.QueryAsync<Problem>(sql, new { BuildingId = buildingId });
+            return result.ToList();
+        }
     }
 }
 

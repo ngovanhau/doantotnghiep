@@ -77,6 +77,28 @@ namespace BPMaster.Services
             }   
             return result;
         }
+        public async Task<List<ProblemDto>> getByBuildingId(Guid buildingid)
+        {
+            var problems = await _ProblemRepository.GetProblemsByBuildingId(buildingid);
+            var result = new List<ProblemDto>();
+
+            if(problems == null)
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+            foreach (var problem in problems)
+            {
+                var image = await _ProblemRepository.GetImagesByProblem(problem.Id);
+
+                var dto = _mapper.Map<ProblemDto>(problem);
+
+                dto.image = image;
+
+                result.Add(dto);
+            }
+            return result;
+        }
         public async Task<Problem> CreateProblemAsync(ProblemDto dto)
         {
             var Problem = _mapper.Map<Problem>(dto);
