@@ -31,6 +31,22 @@ namespace BPMaster.Controllers.v1
             return Success(await _service.GetById(id));
         }
         /// <summary>
+        /// this is api get by id incomeexpensegroupbuildingid
+        /// </summary>
+        [HttpGet("getincomeexpensegroupbybuildingid")]
+        public async Task<IActionResult> GetByBuildingId(Guid id)
+        {
+            return Success(await _service.GetByBuildingId(id));
+        }
+        /// <summary>
+        /// this is api get by id incomeexpensegrouproomid
+        /// </summary>
+        [HttpGet("getincomeexpensegroupbyroomid")]
+        public async Task<IActionResult> GetByRoomId(Guid id)
+        {
+            return Success(await _service.GetByRoomId(id));
+        }
+        /// <summary>
         /// this is api create a new incomeexpensegroup
         /// </summary>
         [HttpPost("create")]

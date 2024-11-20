@@ -19,7 +19,7 @@ namespace BPMaster.Services
 
         public async Task<List<IncomeExpenseGroupDto>> GetAll()
         {
-            var incomeexpensegroup = await _Repository.GetAll();
+            var incomeexpensegroup = await _Repository.GetAll(); 
             var dto = _mapper.Map<List<IncomeExpenseGroupDto>>(incomeexpensegroup);
             return dto;
         }
@@ -36,7 +36,33 @@ namespace BPMaster.Services
             var dto = _mapper.Map<IncomeExpenseGroupDto>(incomeexpensegroup);
             return dto;
         }
-        
+
+        public async Task<List<IncomeExpenseGroupDto>> GetByBuildingId(Guid Id)
+        {
+            var incomeexpensegroup = await _Repository.getByBuildingId(Id);
+
+            if (incomeexpensegroup == null)
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+            var dto = _mapper.Map<List<IncomeExpenseGroupDto>>(incomeexpensegroup);
+
+            return dto;
+        }
+        public async Task<List<IncomeExpenseGroupDto>> GetByRoomId(Guid Id)
+        {
+            var incomeexpensegroup = await _Repository.getByRoomId(Id);
+
+            if (incomeexpensegroup == null)
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+            var dto = _mapper.Map<List<IncomeExpenseGroupDto>>(incomeexpensegroup);
+
+            return dto;
+        }
         public async Task<IncomeExpenseGroup> UpdateAsync(Guid id, IncomeExpenseGroupDto dto)
         {
             var existing = await _Repository.GetByID(id);

@@ -19,6 +19,8 @@ namespace BPMaster.Domains.Dtos
         public int fatal_level { get; set; }
         public int status { get; set; } = 0;
         public Guid roomid { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }
 
