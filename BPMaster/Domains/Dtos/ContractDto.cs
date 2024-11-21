@@ -23,7 +23,7 @@ namespace BPMaster.Domains.Dtos
         [Required]
         public DateTime billing_start_date { get; set; }
         [Required]
-        public int payment_term { get; set; }
+        public int payment_term { get; set; } 
         [Required]
         public int room_fee { get; set; }
         [Required]

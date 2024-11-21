@@ -61,6 +61,26 @@ namespace BPMaster.Services
             }
             return dto;
         }
+        public async Task<List<ContractDto>> GetAllByBuildingId(Guid id)
+        {
+            var contracts = await _ContractRepository.GetByBuildingId(id);
+            var result = new List<ContractDto>();
+
+            foreach (var contract in contracts)
+            {
+                var dto = _mapper.Map<ContractDto>(contract);
+                if (dto.CustomerId != Guid.Empty)
+                {
+                    var tenantname = await _CustomerRepository.GetByIDCustomer(dto.CustomerId);
+                    if (tenantname != null)
+                    {
+                        dto.CustomerName = tenantname.customer_name;
+                    }
+                }
+                result.Add(dto);
+            }
+            return result;
+        }
 
         public async Task<Contract> CreateContractAsync(ContractDto dto)
         {

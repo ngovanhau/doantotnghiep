@@ -21,6 +21,14 @@ namespace BPMaster.Controllers.v1
             return Success(Contract);
         }
         /// <summary>
+        /// this is api get by building id Contract
+        /// </summary>
+        [HttpGet("getContractbybuildingid")]
+        public async Task<IActionResult> GetContractBybuildingId(Guid id)
+        {
+            return Success(await _service.GetAllByBuildingId(id));
+        }
+        /// <summary>
         /// this is api get by id Contract
         /// </summary>
         [HttpGet("getContractbyid")]

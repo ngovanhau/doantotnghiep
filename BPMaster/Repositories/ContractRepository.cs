@@ -36,5 +36,16 @@ namespace Repositories
         {
             await DeleteAsync(Contract);
         }
+        public async Task<List<Contract>> GetByBuildingId(Guid buildingId)
+        {
+            var sql = @"
+            SELECT c.*
+            FROM contract c
+            INNER JOIN room r ON c.""roomId"" = r.""Id""
+            WHERE r.""Building_Id"" = @BuildingId;";
+
+            var result = await connection.QueryAsync<Contract>(sql, new { BuildingId = buildingId });
+            return result.ToList();
+        }
     }
 }

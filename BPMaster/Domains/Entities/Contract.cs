@@ -16,7 +16,7 @@ namespace BPMaster.Domains.Entities
         public DateTime start_day { get; set; }
         public DateTime end_day { get; set; }
         public DateTime billing_start_date { get; set; } 
-        public string payment_term { get; set; } = string.Empty;
+        public int payment_term { get; set; }
         public int room_fee { get; set; }
         public int deposit{ get; set; }
         public Guid CustomerId {  get; set; } 
