@@ -27,6 +27,7 @@ namespace BPMaster.Domains.Entities
         public int penalty_amount { get; set; }
         public int  discount { get; set; }
         public int  final_amount { get; set; }
+        public string transaction_id { get; set; } = string.Empty;
         public string note { get; set; } = string.Empty;
     }
 }

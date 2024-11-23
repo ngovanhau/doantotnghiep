@@ -1,4 +1,4 @@
-CREATE TABLE "bill"
+CREATE TABLE "Bill"
 (
     "Id" uuid NOT NULL,
     "bill_name" varchar(255),
@@ -18,6 +18,7 @@ CREATE TABLE "bill"
     "penalty_amount" int,
     "discount" int,
     "final_amount" int,
+    "transaction_id" varchar(255),
     "note" varchar(255),
     "CreatedAt" timestamp with time zone,
     "UpdatedAt" timestamp with time zone,

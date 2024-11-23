@@ -70,5 +70,20 @@ namespace BPMaster.Controllers.v1
             await _service.DeleteAsync(id);
             return Success("delete Success");
         }
+        /// <summary>
+        /// this is api create payment
+        /// </summary>
+        [HttpPost("createpayment")]
+        public async Task<IActionResult> CreatePayment(Guid billId)
+        {
+            var paymentUrl = await _service.CreateVNPayPayment(billId);
+            return Success(paymentUrl);
+        }
+        [HttpGet("vnpayreturn")]
+        public async Task<IActionResult> VNPayReturn([FromQuery] SortedDictionary<string, string> vnp_Params)
+        {
+            await _service.ProcessVNPayReturn(vnp_Params);
+            return Success("Success");
+        }
     }
 }
