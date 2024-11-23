@@ -80,9 +80,9 @@ namespace BPMaster.Controllers.v1
             return Success(paymentUrl);
         }
         [HttpGet("vnpayreturn")]
-        public async Task<IActionResult> VNPayReturn([FromQuery] SortedDictionary<string, string> vnp_Params)
+        public async Task<IActionResult> VNPayReturn(string fullUrl)
         {
-            await _service.ProcessVNPayReturn(vnp_Params);
+            await _service.ProcessVNPayReturn(fullUrl);
             return Success("Success");
         }
     }

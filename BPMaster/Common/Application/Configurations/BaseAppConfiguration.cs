@@ -95,6 +95,8 @@ namespace Common.Application.Configurations
 
         public virtual void ConfigServices(IServiceCollection services, Assembly assembly, BaseAppSetting setting)
         {
+            services.AddHttpContextAccessor();
+
             // Generic services need to inject
             services.AddSingleton<ILogManager>(new LogManager(_environment.EnvironmentName));
             services.AddScoped<IUnitsOfWork, UnitsOfWork>();
