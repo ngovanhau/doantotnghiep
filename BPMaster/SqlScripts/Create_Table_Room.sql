@@ -12,12 +12,12 @@ CREATE TABLE "room"
     "deposit" numeric,
     "renter" int,
     "service" varchar(255),
-    "image" varchar(255),
     "utilities" varchar(255),
     "interior" varchar(255),
     "describe" varchar(255),
     "note" varchar(255),
     "Building_Id" uuid,
+    "CustomerId" uuid,
     "CreatedAt" timestamp with time zone,
     "UpdatedAt" timestamp with time zone,
     CONSTRAINT "room_pkey" PRIMARY KEY ("Id")

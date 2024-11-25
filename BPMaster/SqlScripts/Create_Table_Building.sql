@@ -13,8 +13,6 @@ CREATE TABLE "Building"
     "payment_time" int,
     "payment_timeout" int,
     "management" varchar(255),
-    "fee_based_service" varchar(255),
-    "free_service" varchar(255),
     "utilities" varchar(255),
     "building_note" varchar(255),
     "CreatedAt" timestamp with time zone,

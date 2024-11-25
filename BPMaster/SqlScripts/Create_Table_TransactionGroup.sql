@@ -10,4 +10,3 @@ CREATE TABLE "TransactionGroup"
     CONSTRAINT "TransactionGroup_pkey" PRIMARY KEY ("Id")
 )
 
-    

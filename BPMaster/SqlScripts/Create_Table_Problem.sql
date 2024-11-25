@@ -4,9 +4,9 @@ CREATE TABLE "problem"
     "room_name" varchar(255),
     "problem" varchar(255),
     "decription" varchar(255),
-    "image" varchar(255),
     "fatal_level" int,
     "status" int,
+    "roomid" uuid,
     "CreatedAt" timestamp with time zone,
     "UpdatedAt" timestamp with time zone,
     CONSTRAINT "problem_pkey" PRIMARY KEY ("Id")
