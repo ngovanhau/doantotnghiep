@@ -9,6 +9,7 @@ using Common.Application.Exceptions;
 using BPMaster.Domains.Dtos;
 using System.Text;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace BPMaster.Services
 {
@@ -77,6 +78,20 @@ namespace BPMaster.Services
 
             return bill;
         }
+        // update payment status
+        public async Task<Bill> Updatepaymentstatus(Guid id)
+        {
+            var existing = await _Repository.GetByID(id);
+            if (existing == null)
+            {
+                throw new Exception("not found");
+            }
+            existing.status_payment = 1;
+
+            await _Repository.Updatebill(existing);
+
+            return existing;
+        }
         public async Task<Bill> CreateAsync(BillDto dto)
         {
             var Bill = _mapper.Map<Bill>(dto);
@@ -92,11 +107,12 @@ namespace BPMaster.Services
             var Bill = await _Repository.GetByID(id);
             if (Bill == null)
             {
-                throw new Exception("Deposit not found !");
+                throw new Exception(" not found !");
             }
 
             await _Repository.Delete(Bill);
         }
+        
         //thanh toan vnpay
         public async Task<string> CreateVNPayPayment(Guid billId)
         {
@@ -151,97 +167,7 @@ namespace BPMaster.Services
                 throw new Exception("Tạo hóa đơn thất bại");
             }
         }
-        public async Task ProcessVNPayReturn(string fullUrl)
-        {
-            try
-            {
-                Console.WriteLine($"[INFO] Received fullUrl: {fullUrl}");
-
-                // Giải mã URL
-                fullUrl = HttpUtility.UrlDecode(fullUrl);
-                Console.WriteLine($"[INFO] Decoded fullUrl: {fullUrl}");
-
-                // Phân tích URL
-                Uri uri = new Uri(fullUrl);
-                var queryParams = HttpUtility.ParseQueryString(uri.Query);
-
-                // Log tham số nhận được từ URL
-                Console.WriteLine("[DEBUG] Query Parameters from URL:");
-                foreach (string key in queryParams)
-                {
-                    Console.WriteLine($"Key: {key}, Value: {queryParams[key]}");
-                }
-
-                // Chuyển tham số sang SortedDictionary
-                var vnp_Params = new SortedDictionary<string, string>();
-                foreach (string key in queryParams)
-                {
-                    if (key != "vnp_SecureHash" && !string.IsNullOrEmpty(key))
-                    {
-                        vnp_Params.Add(key, queryParams[key]);
-                    }
-                }
-
-                // Lấy vnp_SecureHash từ URL
-                string vnp_SecureHash = queryParams["vnp_SecureHash"];
-                if (string.IsNullOrEmpty(vnp_SecureHash))
-                {
-                    Console.WriteLine("[ERROR] Thiếu vnp_SecureHash trong URL.");
-                    throw new Exception("Thiếu vnp_SecureHash trong URL.");
-                }
-
-                Console.WriteLine($"[INFO] Received vnp_SecureHash: {vnp_SecureHash}");
-
-                // Tạo chuỗi rawData để kiểm tra hash
-                string rawData = string.Join("&", vnp_Params.Select(kvp => $"{kvp.Key}={kvp.Value}"));
-                Console.WriteLine($"[DEBUG] rawData for hash: {rawData}");
-
-                // Tính toán hash
-                string vnp_HashSecret = "7VQZ64MFZGC8ZTFS22CM6DDO6WV7ZYGA"; // Thay bằng giá trị đúng
-                string calculatedHash = CreateHmacSHA512(vnp_HashSecret, rawData);
-                Console.WriteLine($"[DEBUG] Calculated Secure Hash: {calculatedHash}");
-
-                // So sánh hash
-                if (calculatedHash != vnp_SecureHash)
-                {
-                    Console.WriteLine($"[ERROR] Calculated hash: {calculatedHash}");
-                    Console.WriteLine($"[ERROR] Received hash: {vnp_SecureHash}");
-                    throw new Exception("Checksum không hợp lệ.");
-                }
-
-                Console.WriteLine("[INFO] Checksum hợp lệ. Tiến hành xử lý giao dịch.");
-
-                // Xử lý giao dịch
-                string responseCode = vnp_Params["vnp_ResponseCode"];
-                string transactionRef = vnp_Params["vnp_TxnRef"];
-                Console.WriteLine($"[INFO] Response Code: {responseCode}");
-                Console.WriteLine($"[INFO] Transaction Ref: {transactionRef}");
-
-                var bill = await _Repository.GetByTransactionId(transactionRef);
-                if (bill == null)
-                {
-                    throw new Exception("Hóa đơn không tồn tại.");
-                }
-
-                if (responseCode == "00")
-                {
-                    await _Repository.UpdateTransactionStatus(transactionRef, 1, DateTime.Now);
-                    Console.WriteLine("[INFO] Giao dịch thành công. Cập nhật trạng thái hóa đơn thành công.");
-                }
-                else
-                {
-                    await _Repository.UpdateTransactionStatus(transactionRef, 0);
-                    Console.WriteLine($"[INFO] Giao dịch thất bại với mã lỗi: {responseCode}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[ERROR] VNPayReturn: {ex.Message}");
-                throw;
-            }
-        }
-
-
+       
         private static string CreateHmacSHA512(string key, string inputData)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(Encoding.UTF8.GetBytes(key)))
@@ -250,6 +176,7 @@ namespace BPMaster.Services
                 return BitConverter.ToString(hashValue).Replace("-", "").ToLower();
             }
         }
+
     }
 }
 

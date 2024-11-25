@@ -51,22 +51,11 @@ namespace Repositories
 
         //thanh toán vn pay
 
-        public async Task<Bill?> GetByTransactionId(string transactionId)
+        public async Task<int> Updatestatuspament(Guid id, int status)
         {
-            var sql = "SELECT * FROM Bill WHERE transaction_id = @transactionId";
-            return await GetOneByConditionAsync(sql, new { transactionId });
+            var sql = "Update bill SET status = @Status where \"Id\" = @Id ";
+            var result = await connection.ExecuteAsync(sql, new { Id = id, Status = status });
+            return result;
         }
-
-        public async Task UpdateTransactionStatus(string transactionId, int paymentStatus, DateTime? paymentDate = null)
-        {
-            var sql = @"
-            UPDATE Bill
-            SET status_payment = @paymentStatus,
-                payment_date = @paymentDate
-            WHERE transaction_id = @transactionId";
-
-            await connection.ExecuteAsync(sql, new { transactionId, paymentStatus, paymentDate });
-        }
-
     }
 }

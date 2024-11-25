@@ -79,11 +79,13 @@ namespace BPMaster.Controllers.v1
             var paymentUrl = await _service.CreateVNPayPayment(billId);
             return Success(paymentUrl);
         }
-        [HttpGet("vnpayreturn")]
-        public async Task<IActionResult> VNPayReturn(string fullUrl)
+        /// <summary>
+        /// this is api return payment
+        /// </summary>
+        [HttpPut("updatepaymentstatus")]
+        public async Task<IActionResult> UpdateStatusPayment(Guid id)
         {
-            await _service.ProcessVNPayReturn(fullUrl);
-            return Success("Success");
+            return Success(await _service.Updatepaymentstatus(id));
         }
     }
 }
