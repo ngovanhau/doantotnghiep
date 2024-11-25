@@ -24,7 +24,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Sync up to CodeCommit
-        uses: ngovanhau/doantotnghiep@v3
+        uses: ngovanhau/doantotnghiep@main
         with:
-          repository_name: DemoGitRepo
+          repository_name: doantotnghiep
           aws_region: us-east-1
