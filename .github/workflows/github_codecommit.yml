@@ -1,0 +1,30 @@
+name: sync up to codecommit
+
+on:
+  push:
+    tags-ignore:
+      - '**'
+    branches:
+      - '*'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Sync up to CodeCommit
+        uses: ngovanhau/doantotnghiep@main
+        with:
+          repository_name: doantotnghiep
+          aws_region: us-east-1
