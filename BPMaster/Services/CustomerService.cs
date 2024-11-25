@@ -203,6 +203,12 @@ namespace BPMaster.Services
 
             await _CustomerRepository.RemoveImagesFromCustomer(id);
 
+            //delete user
+
+            var user = await _IdentityUserRepository.GetByIDUser(Customer.UserId);
+
+            await _IdentityUserRepository.DeleteUser(user);
+
             await _CustomerRepository.DeleteAsync(Customer);
         }
 
@@ -217,21 +223,33 @@ namespace BPMaster.Services
 
                 var dto = _mapper.Map<CustomerDto>(customer);
 
-                // Kiểm tra xem phòng có tồn tại không
-                if (customer.choose_room != Guid.Empty)
+                // Nếu choose_room là Guid.Empty hoặc 00000000-0000-0000-0000-000000000000
+                if (customer.choose_room == Guid.Empty || customer.choose_room == Guid.Parse("00000000-0000-0000-0000-000000000000"))
                 {
-                    var room = await _CustomerRepository.GetChooseRoombyId(customer.choose_room);
-
-                    if (room == null) // Nếu không tìm thấy phòng
-                    {
-                        dto.RoomName = "không có phòng";
-                        dto.imageCCCDs = image;
-                        result.Add(dto);
-                    }
+                    dto.RoomName = "không có phòng";
+                    dto.imageCCCDs = image;
+                    result.Add(dto);
+                    continue; 
                 }
+
+                var room = await _CustomerRepository.GetChooseRoombyId(customer.choose_room);
+
+                if (room == null) 
+                {
+                    dto.RoomName = "không có phòng";
+                }
+                else
+                {
+                    dto.RoomName = room.room_name; 
+                }
+
+                dto.imageCCCDs = image;
+                result.Add(dto);
             }
+
             return result;
         }
+
     }
 }
 

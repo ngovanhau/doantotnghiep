@@ -15,7 +15,7 @@ namespace BPMaster.Domains.Dtos
         public string customer_name { get; set; } = string.Empty; 
         [Required]
         public string phone_number { get; set; } = string.Empty;
-        public Guid? choose_room { get; set; } 
+        public Guid choose_room { get; set; } 
         public string email { get; set; } = string.Empty;
         public DateTime date_of_birth { get; set; }
         public string CCCD { get; set; } = string.Empty;

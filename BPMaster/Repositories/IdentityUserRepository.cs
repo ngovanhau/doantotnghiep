@@ -33,5 +33,9 @@ namespace Repositories
             var sql = SqlCommandHelper.GetSelectSqlWithCondition<IdentityUser>(new { Id = id });
             return await GetOneByConditionAsync(sql, param);
         }
+        public async Task DeleteUser(IdentityUser user)
+        {
+            await DeleteAsync(user);
+        }
     }
 }
