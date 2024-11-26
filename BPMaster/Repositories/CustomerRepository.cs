@@ -78,5 +78,6 @@ namespace Repositories
             var sql = "UPDATE customer SET \"choose_room\" = @Chooseroom WHERE \"Id\" = @CustomerId";
             await connection.ExecuteAsync(sql, new { CustomerId = customerId, Chooseroom = chooseroom });
         }
+
     }
 }

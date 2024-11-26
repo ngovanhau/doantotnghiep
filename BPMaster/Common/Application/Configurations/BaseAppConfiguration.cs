@@ -23,6 +23,9 @@ using Microsoft.Extensions.Hosting;
 using Google.Apis.Auth.OAuth2;
 using NETCore.MailKit.Core;
 using RPMSMaster.Common.Application.Settings;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
+
 
 namespace Common.Application.Configurations
 {
@@ -80,7 +83,7 @@ namespace Common.Application.Configurations
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseStaticFiles();
             // Sử dụng CORS
             app.UseCors("AllowAll");
 
@@ -95,6 +98,9 @@ namespace Common.Application.Configurations
 
         public virtual void ConfigServices(IServiceCollection services, Assembly assembly, BaseAppSetting setting)
         {
+            QuestPDF.Settings.License = LicenseType.Community;
+
+
             services.AddHttpContextAccessor();
 
             // Generic services need to inject

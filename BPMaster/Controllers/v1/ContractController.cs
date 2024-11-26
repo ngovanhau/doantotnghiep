@@ -61,6 +61,27 @@ namespace BPMaster.Controllers.v1
             await _service.DeleteContractAsync(id);
             return Success("delete Success");
         }
+        /// <summary>
+        /// this is api download contract
+        /// </summary>
+        [HttpGet("download-pdf/{contractId}")]
+        public async Task<IActionResult> DownloadContractPdf(Guid contractId)
+        {
+            try
+            {
+                var pdfDownloadLink = await _service.GenerateContractPdf(contractId);
+
+                return Ok(new
+                {
+                    Message = "Tạo file PDF thành công.",
+                    DownloadLink = $"{Request.Scheme}://{Request.Host}{pdfDownloadLink}"
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = ex.Message });
+            }
+        }
     }
 }
 
