@@ -40,6 +40,15 @@ namespace Controllers.v1
             return CreatedSuccess(await _service.RegisterUserAsync(dto));
         }
         /// <summary>
+        /// This API is for updateavata 
+        /// </summary>
+        [HttpPut("updateavata")]
+        public async Task<IActionResult> UpdateAvata(Guid id, string avata)
+        {
+            await _service.UpdateAvata(id,avata);
+            return Success("Update avata Success");
+        }
+        /// <summary>
         /// This API is for authenticating a user
         /// </summary>
         [HttpPost("login")]

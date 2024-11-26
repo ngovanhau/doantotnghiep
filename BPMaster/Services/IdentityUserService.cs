@@ -137,5 +137,15 @@ namespace Services
             user.Status = UserStatus.Deleted;
             await _repo.UpdateAsync(user);
         }
+        public async Task UpdateAvata(Guid id, string avata)
+        {
+            var user = await _repo.GetByIDUser(id);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            await _repo.Updateavata(id, avata);
+        }
     }
 }

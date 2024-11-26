@@ -37,5 +37,10 @@ namespace Repositories
         {
             await DeleteAsync(user);
         }
+        public async Task Updateavata(Guid userId, string avata)
+        {
+            var sql = "UPDATE identity_users SET avata = @Avata WHERE \"Id\"= @UserId";
+            await connection.ExecuteAsync(sql, new { UserId = userId, Avata = avata });
+        }
     }
 }
