@@ -24,5 +24,6 @@ namespace BPMaster.Domains.Dtos
         public string address { get; set; } = string.Empty;
         public List<string> imageCCCDs { get; set; } = new List<string>();
         public string RoomName { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
     }
 }

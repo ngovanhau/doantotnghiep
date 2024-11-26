@@ -86,6 +86,39 @@ namespace BPMaster.Services
             return dto;
         }
 
+        public async Task<CustomerDto> GetByUserID(Guid Id)
+        {
+            var Customer = await _CustomerRepository.GetbyUserId(Id);
+
+            if (Customer == null)
+            {
+                throw new NonAuthenticateException();
+            }
+            var image = await _CustomerRepository.GetImagesByCustomer(Customer.Id);
+
+            var dto = _mapper.Map<CustomerDto>(Customer);
+
+            if (dto.choose_room != Guid.Empty)
+            {
+                var room = await _CustomerRepository.GetChooseRoombyId(dto.choose_room);
+
+                // Kiểm tra nếu room không phải là null trước khi truy cập room_name
+                if (room != null)
+                {
+                    dto.RoomName = room.room_name; // Đảm bảo CustomerDto có thuộc tính RoomName
+                }
+
+            }
+            else
+            {
+                dto.RoomName = "Chưa có phòng";
+            }
+            dto.imageCCCDs = image;
+
+
+            return dto;
+        }
+
         public async Task<Customer> CreateCustomerAsync(CustomerDto dto)
         {
             var existingUser = await _IdentityUserRepository.GetByUsernameAsync(dto.email);

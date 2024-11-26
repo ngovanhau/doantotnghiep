@@ -38,6 +38,14 @@ namespace BPMaster.Controllers.v1
             return Success(await _service.GetByIDCustomer(id));
         }
         /// <summary>
+        /// this is api get by userid Customer
+        /// </summary>
+        [HttpGet("getCustomerbyuserid")]
+        public async Task<IActionResult> GetByUserId(Guid id)
+        {
+            return Success(await _service.GetByUserID(id));
+        }
+        /// <summary>
         /// this is api create a new Customer
         /// </summary>
         [HttpPost("create")]

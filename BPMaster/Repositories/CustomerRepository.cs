@@ -78,6 +78,11 @@ namespace Repositories
             var sql = "UPDATE customer SET \"choose_room\" = @Chooseroom WHERE \"Id\" = @CustomerId";
             await connection.ExecuteAsync(sql, new { CustomerId = customerId, Chooseroom = chooseroom });
         }
-
+        public async Task<Customer> GetbyUserId(Guid id)
+        {
+            var sql = "SELECT * FROM customer WHERE \"UserId\" = @Id";
+            var result = await connection.QueryFirstOrDefaultAsync<Customer>(sql, new { Id = id });
+            return result;
+        }
     }
 }
