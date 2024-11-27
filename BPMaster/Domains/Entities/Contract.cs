@@ -12,6 +12,7 @@ namespace BPMaster.Domains.Entities
     {
         public string contract_name { get; set; } = string.Empty;
         public string room { get; set; } = string.Empty;
+        public int status { get; set; } 
         public Guid roomId { get; set; }
         public DateTime start_day { get; set; }
         public DateTime end_day { get; set; }

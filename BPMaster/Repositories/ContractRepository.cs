@@ -47,5 +47,11 @@ namespace Repositories
             var result = await connection.QueryAsync<Contract>(sql, new { BuildingId = buildingId });
             return result.ToList();
         }
+        public async Task<Contract> GetByCustomerId(Guid id)
+        {
+            var sql = "SELECT * FROM contract WHERE \"CustomerId\" = @Id";
+            var result = await connection.QueryFirstOrDefaultAsync<Contract>(sql, new { Id = id });
+            return result;
+        }
     }
 }

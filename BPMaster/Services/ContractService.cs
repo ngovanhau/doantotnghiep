@@ -23,6 +23,7 @@ namespace BPMaster.Services
         private readonly RoomRepository _RoomRepository = new(connection);
         private readonly BuildingRepository _BuildingRepository = new(connection);
 
+
         public async Task<List<ContractDto>> GetAllContract()
         {
             var contracts = await _ContractRepository.GetAllContract();
@@ -67,6 +68,38 @@ namespace BPMaster.Services
             }
             return dto;
         }
+
+        public async Task<ContractDto> GetByUserID(Guid UserId)
+        {
+
+            var Customer = await _CustomerRepository.GetbyUserId(UserId);
+            if (Customer == null)
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+            var Contract = await _ContractRepository.GetByCustomerId(Customer.Id);
+
+            if (Contract == null)
+            {
+                throw new NonAuthenticateException();
+            }
+
+            var dto = _mapper.Map<ContractDto>(Contract);
+
+            if (Contract.CustomerId != Guid.Empty)
+            {
+                var tenantname = await _CustomerRepository.GetByIDCustomer(Contract.CustomerId);
+
+                if (tenantname != null)
+                {
+                    dto.CustomerName = tenantname.customer_name;
+                }
+
+            }
+            return dto;
+        }
+
         public async Task<List<ContractDto>> GetAllByBuildingId(Guid id)
         {
             var contracts = await _ContractRepository.GetByBuildingId(id);

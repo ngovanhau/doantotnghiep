@@ -12,6 +12,7 @@ namespace BPMaster.Domains.Dtos
         public Guid Id { get; set; }
         [Required]
         public string contract_name { get; set; } = string.Empty;
+        public int status { get; set; }
         public string rentalManagement { get; set; } = string.Empty;
         [Required]
         public string room { get; set; } = string.Empty;

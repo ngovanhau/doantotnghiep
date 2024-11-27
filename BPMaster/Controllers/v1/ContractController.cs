@@ -37,6 +37,14 @@ namespace BPMaster.Controllers.v1
             return Success(await _service.GetByIDContract(id));
         }
         /// <summary>
+        /// this is api get by user id 
+        /// </summary>
+        [HttpGet("getcontractbyuserid")]
+        public async Task<IActionResult> GetContractByUserId(Guid id)
+        {
+            return Success(await _service.GetByUserID(id));
+        }
+        /// <summary>
         /// this is api create a new Contract
         /// </summary>
         [HttpPost("create")]
@@ -71,7 +79,7 @@ namespace BPMaster.Controllers.v1
             {
                 var pdfDownloadLink = await _service.GenerateContractPdf(contractId);
 
-                return Ok(new
+                return Success(new
                 {
                     Message = "Tạo file PDF thành công.",
                     DownloadLink = $"{Request.Scheme}://{Request.Host}{pdfDownloadLink}"
@@ -82,6 +90,7 @@ namespace BPMaster.Controllers.v1
                 return StatusCode(500, new { Error = ex.Message });
             }
         }
+
     }
 }
 
