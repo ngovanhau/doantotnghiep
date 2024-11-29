@@ -63,5 +63,17 @@ namespace Repositories
             var result = await connection.QueryAsync<ServiceMeterReadings>(sql, new { RId = Id });
             return result.ToList();
         }
+        public async Task updatestatus(Guid id, int status)
+        {
+            var sql = "UPDATE servicemeterreadings  SET status = @Status WHERE \"Id\"= @Id";
+            await connection.ExecuteAsync(sql, new { Id = id, Status = status });
+        }
+
+        public async Task<List<ServiceMeterReadings>> getbystatus(int status)
+        {
+            var sql = "SELECT * FROM servicemeterreadings WHERE status = @Status";
+            var result = await connection.QueryAsync<ServiceMeterReadings>(sql, new { Status = status });
+            return result.ToList();
+        }
     }
 }

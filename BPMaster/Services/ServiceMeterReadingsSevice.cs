@@ -154,5 +154,30 @@ namespace BPMaster.Services
 
             return dto;
         }
+
+        public async Task updatestatus(Guid id, int status)
+        {
+            var service = await _ServiceRepository.GetByID(id);
+            if (service == null)
+            {
+                throw new NonAuthenticateException("not found !");
+            }
+
+            await _ServiceRepository.updatestatus(id, status);
+        }
+
+        public async Task<List<ServiceMeterReadingsDto>> getlistbystatus(int status)
+        {
+            var service = await _ServiceRepository.getbystatus(status);
+
+            if (service == null)
+            {
+                throw new NonAuthenticateException("not found");
+            }
+
+            var dto = _mapper.Map<List<ServiceMeterReadingsDto>>(service);
+
+            return dto;
+        }
     }
 }

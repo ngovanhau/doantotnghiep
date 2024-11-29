@@ -37,6 +37,14 @@ namespace BPMaster.Controllers.v1
             return Success(await _service.getlistbyroomid(id));
         }
         /// <summary>
+        /// this is api get list by status
+        /// </summary>
+        [HttpGet("getlistServicebystatus")]
+        public async Task<IActionResult> GetListByStatus(int status)
+        {
+            return Success(await _service.getlistbystatus(status));
+        }
+        /// <summary>
         /// this is api get by id ServiceMeterReadings
         /// </summary>
         [HttpGet("getServicebyid")]
@@ -59,6 +67,16 @@ namespace BPMaster.Controllers.v1
         public async Task<IActionResult> Create([FromBody] ServiceMeterReadingsDto dto)
         {
             return CreatedSuccess(await _service.CreateAsync(dto));
+        }
+
+        /// <summary>
+        /// this is api update ServiceMeterReadings
+        /// </summary>
+        [HttpPut("updatestatus")]
+        public async Task<IActionResult> Update(Guid id, int status)
+        {
+            await _service.updatestatus(id, status);
+            return Success("update status Success");
         }
         /// <summary>
         /// this is api update ServiceMeterReadings
