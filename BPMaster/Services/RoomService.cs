@@ -148,6 +148,31 @@ namespace BPMaster.Services
             }
             return result;
         }
+        public async Task<List<RoomDto>> GetRoomByBuildingandStatus(Guid BuildingId, int status)
+        {
+            var result = new List<RoomDto>();
+            var rooms = await _RoomRepository.GetRoomsByBuildingIdAndStatus(BuildingId, status);
+
+            if (rooms == null || rooms.Count == 0)
+            {
+                throw new NonAuthenticateException("Room Not found!");
+            }
+            foreach (var room in rooms)
+            {
+                var sevice = await _RoomRepository.GetServicesByRoom(room.Id);
+
+                var image = await _RoomRepository.GetImagesByRoom(room.Id);
+
+                var dto = _mapper.Map<RoomDto>(room);
+
+                dto.roomservice = sevice;
+
+                dto.imageUrls = image;
+
+                result.Add(dto);
+            }
+            return result;
+        }
         public async Task<Room> CreateRoomAsync(RoomDto dto)
         {
             var Room = _mapper.Map<Room>(dto);

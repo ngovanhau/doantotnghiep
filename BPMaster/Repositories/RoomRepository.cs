@@ -128,5 +128,16 @@ namespace Repositories
             var RoomId = await connection.QuerySingleOrDefaultAsync<Guid>(sql, new { UserId = userId });
             return RoomId;
         }
+        public async Task<List<Room>> GetRoomsByBuildingIdAndStatus(Guid buildingId, int status)
+        {
+            var param = new { Building_Id = buildingId, Status = status };
+            var sql = @"
+            SELECT * 
+            FROM ""room""
+            WHERE ""Building_Id"" = @Building_Id AND ""status"" = @Status";
+
+            var result = await connection.QueryAsync<Room>(sql, param);
+            return result.ToList();
+        }
     }
 }
