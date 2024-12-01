@@ -29,6 +29,15 @@ namespace BPMaster.Controllers.v1
             return Success(await _service.GetByIDService(id));
         }
         /// <summary>
+        /// this is api get by Roomid Service
+        /// </summary>
+        [HttpGet("getServicebyRoomid")]
+        public async Task<IActionResult> GetServiceByRoomId(Guid Roomid)
+        {
+            return Success(await _service.GetCostServiceByRoomId(Roomid));
+        }
+
+        /// <summary>
         /// this is api create a new Service
         /// </summary>
         [HttpPost("create")]

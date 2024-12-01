@@ -16,7 +16,7 @@ namespace BPMaster.Services
         IDbConnection connection) : BaseService(services)
     {
         private readonly ServiceRepository _ServiceRepository = new(connection);
-
+        private readonly RoomRepository _RoomRepository = new(connection);
         public async Task<List<Service>> GetAllService()
         {
             return await _ServiceRepository.GetAllService();
@@ -67,6 +67,22 @@ namespace BPMaster.Services
             await _ServiceRepository.DeleteAsync(Service);
         }
 
+        // get cost serrvice
+
+        public async Task<List<ServiceDto>> GetCostServiceByRoomId(Guid id)
+        {
+            var getroom = await _RoomRepository.GetByIDRoom(id);
+            if (getroom == null)
+            {
+                throw new NonAuthenticateException("Not found");
+            }
+
+            var service = await _ServiceRepository.GetServicesByRoomId(id);
+
+            var dto = _mapper.Map<List<ServiceDto>>(service);
+
+            return dto;
+        }
     }
 }
 

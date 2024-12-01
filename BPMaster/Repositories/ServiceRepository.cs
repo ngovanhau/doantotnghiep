@@ -36,5 +36,16 @@ namespace Repositories
         {
             await DeleteAsync(Service);
         }
+        public async Task<List<Service>> GetServicesByRoomId(Guid roomId)
+        {
+            var sql = @"
+            SELECT s.*
+            FROM service s
+            INNER JOIN roomservice rs ON rs.""serviceid"" = s.""Id""
+            WHERE rs.RoomId = @RoomId";
+
+            var result = await connection.QueryAsync<Service>(sql, new { RoomId = roomId });
+            return result.ToList();
+        }
     }
 }
