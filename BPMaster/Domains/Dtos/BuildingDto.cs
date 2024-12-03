@@ -9,6 +9,7 @@ namespace BPMaster.Domains.Dtos
 {
     public class BuildingDto
     {
+        //tesst
         public Guid Id { get; set; }
         public string building_name { get; set; } = string.Empty;
         public string number_of_floors { get; set; } = string.Empty;
