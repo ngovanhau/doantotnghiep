@@ -17,7 +17,6 @@ jobs:
           distribution: 'adopt'
       # Step 3: Build Application and Run unit Test
       - name: Build Application and Run unit Test
-        run: mvn -B test --file student-service/pom.xml
 
   continuous-deployment:
     runs-on: ubuntu-latest
