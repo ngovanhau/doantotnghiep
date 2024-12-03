@@ -1,15 +1,30 @@
-﻿version: '3.5'
-
+version: '3.8'
 services:
-  app:
-    container_name: "rpms_container"
+  rpms-service:  # Thay đổi tên service ở đây
+    container_name: rpms-service  # Thay đổi tên container ở đây
     build:
-      context: .  # Thư mục hiện tại chứa Dockerfile
-      dockerfile: Dockerfile  # Tên Dockerfile (mặc định là 'Dockerfile')
+      context: rpms-service  # Thay đổi thư mục build nếu cần
+    restart: always
     ports:
-      - "8080:8080"  # Ánh xạ cổng từ máy chủ đến container
-    restart: unless-stopped
+      - 8080:8080
     environment:
-      NODE_ENV: development
-    volumes:
-      - "/mnt/data:/app/data"  # Gắn thư mục từ máy chủ vào container nếu cần
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/studentDb
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: password
+    healthcheck:
+      test: "exit 0"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: studentDb
+    healthcheck:
+      test: "exit 0"
