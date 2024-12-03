@@ -1,14 +1,14 @@
 version: '3.8'
 services:
-  rpms-service:  # Thay đổi tên service ở đây
-    container_name: rpms-service  # Thay đổi tên container ở đây
+  rpms-service:
+    container_name: rpms-service
     build:
       context: rpms-service  # Thay đổi thư mục build nếu cần
     restart: always
     ports:
       - 8080:8080
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/studentDb
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/RPMSDb
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: password
     healthcheck:
@@ -25,6 +25,6 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: studentDb
+      POSTGRES_DB: RPMSDb  # Sửa tên DB ở đây
     healthcheck:
       test: "exit 0"
